@@ -60,7 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'eda';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="ENUNCIADO" href="enunciado.html" />
+    <link rel="next" title="Scikit" href="modeloscikit.html" />
+    <link rel="prev" title="7.12.1. Objetivo" href="enunciado.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,8 +180,13 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="enunciado.html">ENUNCIADO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enunciado.html">7.12.1. Objetivo</a></li>
+
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Análisis Exploratorio de los Datos</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modeloscikit.html"><strong>Scikit</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelopysparkk.html">Modelo Pyspark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comparacion.html"><strong>Comparación de Resultados</strong></a></li>
 </ul>
 
     </div>
@@ -397,9 +403,18 @@ document.write(`
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion"><strong>Imputación</strong></a></li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#numericas"><strong>Numéricas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#numericas"><strong>Numéricas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Imputación</strong></a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables"><strong>Análisis de las variables</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Numéricas</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Categóricas</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multicolinealidad"><strong>Multicolinealidad</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -427,6 +442,7 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.outliers_influence</span><span class="w"> </span><span class="kn">import</span> <span class="n">variance_inflation_factor</span>
 </pre></div>
 </div>
 </div>
@@ -795,7 +811,7 @@ Name: proportion, dtype: float64
 </div>
 </div>
 </div>
-<p>Al analizar la columna <code class="docutils literal notranslate"><span class="pre">default</span></code>, que indica si un préstamo se paga completamente o no, encontramos una distribución desbalanceada. En total, se registran <strong>1076751 (80.04%)</strong> observaciones con un valor correspondiente a 0, lo que significa que el crédito se paga en su totalidad. Por otro lado, solo <strong>268559 (19.96%)</strong> observaciones tienen un valor de 1, indicando que el préstamo queda en default.</p>
+<p>Al analizar la columna <code class="docutils literal notranslate"><span class="pre">default</span></code>, que indica si un préstamo se paga completamente o no, encontramos una distribución desbalanceada. En total, se registran <strong>1076751 (80.04%)</strong> observaciones con un valor correspondiente a 0, lo que significa que el crédito se pagará en su totalidad. Por otro lado, solo <strong>268559 (19.96%)</strong> observaciones tienen un valor de 1, indicando que el préstamo quedará en default.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1603,10 +1619,10 @@ memory usage: 1.5+ GB
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">faltantesporc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
 
-<span class="c1"># Filtrar columnas con más del 70% de faltantes</span>
-<span class="n">faltantesporc</span> <span class="o">=</span> <span class="n">faltantesporc</span><span class="p">[</span><span class="n">faltantesporc</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">]</span>
+<span class="c1"># Filtrar columnas con más del 50% de faltantes</span>
+<span class="n">faltantesporc</span> <span class="o">=</span> <span class="n">faltantesporc</span><span class="p">[</span><span class="n">faltantesporc</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columnas con más del 70% de faltantes: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">faltantesporc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columnas con más del 50% de faltantes: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">faltantesporc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="n">datafaltante</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s1">&#39;Variable&#39;</span><span class="p">:</span> <span class="n">faltantesporc</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
@@ -1617,12 +1633,12 @@ memory usage: 1.5+ GB
 <span class="n">bars</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span>
     <span class="n">datafaltante</span><span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">],</span>
     <span class="n">datafaltante</span><span class="p">[</span><span class="s1">&#39;Porcentaje_faltantes_total&#39;</span><span class="p">],</span>
-    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF8FA3&#39;</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#00b4d8&#39;</span>
 <span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Porcentaje (%)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Variables&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Porcentaje de valores faltantes por variable (&gt;70%)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Porcentaje de valores faltantes por variable (&gt;50%)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">datafaltante</span><span class="p">[</span><span class="s1">&#39;Porcentaje_faltantes_total&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">bars</span><span class="p">:</span>
@@ -1635,13 +1651,14 @@ memory usage: 1.5+ GB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columnas con más del 70% de faltantes: 42
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columnas con más del 50% de faltantes: 58
 </pre></div>
 </div>
-<img alt="_images/ac8fd2948a0287503caba8ca98b5657986d1ee3308fa8f32516acb8443e23037.png" src="_images/ac8fd2948a0287503caba8ca98b5657986d1ee3308fa8f32516acb8443e23037.png" />
+<img alt="_images/b37ec51d6dd28f58108bf43773cfc61c01ca6c7eaf90b439d4312211bb9e08d6.png" src="_images/b37ec51d6dd28f58108bf43773cfc61c01ca6c7eaf90b439d4312211bb9e08d6.png" />
 </div>
 </div>
-<p>En el gráfico se identifican <strong>42</strong> variables con más de un <strong>70%</strong> de datos faltantes. Dado que contienen poca información útil, se decidió eliminarlas. Con ello, se descarta aproximadamente un <strong>27.63%</strong> del total de variables de la base.</p>
+<p>En el gráfico se identifican <strong>58</strong> variables con más de un <strong>50%</strong> de datos faltantes. Dado que contienen poca información útil, se decidió eliminarlas. Con ello, se descarta aproximadamente un <strong>38.41%</strong> del total de variables de la base.</p>
+<p>Cabe mencionar que la decisión de eliminar las columnas con más del 50% de valores faltantes se basa en el contexto de que los datos reflejan información de la vida real. Al intentar imputar columnas cuando la mayoría de los datos está ausente, existe un alto riesgo de introducir sesgos significativos, lo que podría afectar la calidad del conjunto de datos y generar errores en los modelos posteriores.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">faltantesporc</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -1958,10 +1975,10 @@ memory usage: 1.5+ GB
     </tr>
   </tbody>
 </table>
-<p>1345310 rows × 109 columns</p>
+<p>1345310 rows × 93 columns</p>
 </div></div></div>
 </div>
-<p>Así, el conjunto de datos conserva el mismo número de filas, pero ahora cuenta con <strong>109</strong> variables en total.</p>
+<p>Así, el conjunto de datos conserva el mismo número de filas, pero ahora cuenta con <strong>93</strong> variables en total.</p>
 </section>
 <section id="limpieza-del-conjunto-de-datos">
 <h3><strong>Limpieza del conjunto de datos</strong><a class="headerlink" href="#limpieza-del-conjunto-de-datos" title="Link to this heading">#</a></h3>
@@ -2067,14 +2084,14 @@ Name: emp_title, Length: 1345310, dtype: object
         <span class="o">**</span><span class="p">{</span>
             <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;10pt&#39;</span><span class="p">,</span>
             <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="s1">&#39;1px solid black&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFCCD5&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
             <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span>
         <span class="p">}</span>
     <span class="p">)</span>
     <span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
         <span class="p">{</span>
             <span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;th&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#FF8FA3&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#00b4d8&#39;</span><span class="p">),</span>
                       <span class="p">(</span><span class="s1">&#39;font-weight&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span>
                       <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)]</span>
         <span class="p">}</span>
@@ -2089,70 +2106,70 @@ Name: emp_title, Length: 1345310, dtype: object
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_f1dee th {
-  background-color: #FF8FA3;
+#T_714c0 th {
+  background-color: #00b4d8;
   font-weight: bold;
   color: black;
 }
-#T_f1dee_row0_col0, #T_f1dee_row1_col0, #T_f1dee_row2_col0, #T_f1dee_row3_col0, #T_f1dee_row4_col0, #T_f1dee_row5_col0, #T_f1dee_row6_col0 {
+#T_714c0_row0_col0, #T_714c0_row1_col0, #T_714c0_row2_col0, #T_714c0_row3_col0, #T_714c0_row4_col0, #T_714c0_row5_col0, #T_714c0_row6_col0 {
   font-size: 10pt;
   border: 1px solid black;
-  background-color: #FFCCD5;
+  background-color: white;
   color: black;
 }
-#T_f1dee_row0_col1, #T_f1dee_row1_col1, #T_f1dee_row2_col1, #T_f1dee_row3_col1, #T_f1dee_row4_col1, #T_f1dee_row5_col1, #T_f1dee_row6_col1 {
+#T_714c0_row0_col1, #T_714c0_row1_col1, #T_714c0_row2_col1, #T_714c0_row3_col1, #T_714c0_row4_col1, #T_714c0_row5_col1, #T_714c0_row6_col1 {
   font-size: 10pt;
   border: 1px solid black;
-  background-color: #FFCCD5;
+  background-color: white;
   color: black;
   text-align: center;
 }
 </style>
-<table id="T_f1dee">
+<table id="T_714c0">
   <caption>Subgrades más frecuentes por Grade</caption>
   <thead>
     <tr>
-      <th id="T_f1dee_level0_col0" class="col_heading level0 col0" >Grade</th>
-      <th id="T_f1dee_level0_col1" class="col_heading level0 col1" >Top Subgrades</th>
+      <th id="T_714c0_level0_col0" class="col_heading level0 col0" >Grade</th>
+      <th id="T_714c0_level0_col1" class="col_heading level0 col1" >Top Subgrades</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_f1dee_row0_col0" class="data row0 col0" >A</td>
-      <td id="T_f1dee_row0_col1" class="data row0 col1" >A5, A4, A1, A3, A2</td>
+      <td id="T_714c0_row0_col0" class="data row0 col0" >A</td>
+      <td id="T_714c0_row0_col1" class="data row0 col1" >A5, A4, A1, A3, A2</td>
     </tr>
     <tr>
-      <td id="T_f1dee_row1_col0" class="data row1 col0" >B</td>
-      <td id="T_f1dee_row1_col1" class="data row1 col1" >B4, B5, B3, B2, B1</td>
+      <td id="T_714c0_row1_col0" class="data row1 col0" >B</td>
+      <td id="T_714c0_row1_col1" class="data row1 col1" >B4, B5, B3, B2, B1</td>
     </tr>
     <tr>
-      <td id="T_f1dee_row2_col0" class="data row2 col0" >C</td>
-      <td id="T_f1dee_row2_col1" class="data row2 col1" >C1, C2, C3, C4, C5</td>
+      <td id="T_714c0_row2_col0" class="data row2 col0" >C</td>
+      <td id="T_714c0_row2_col1" class="data row2 col1" >C1, C2, C3, C4, C5</td>
     </tr>
     <tr>
-      <td id="T_f1dee_row3_col0" class="data row3 col0" >D</td>
-      <td id="T_f1dee_row3_col1" class="data row3 col1" >D1, D2, D3, D4, D5</td>
+      <td id="T_714c0_row3_col0" class="data row3 col0" >D</td>
+      <td id="T_714c0_row3_col1" class="data row3 col1" >D1, D2, D3, D4, D5</td>
     </tr>
     <tr>
-      <td id="T_f1dee_row4_col0" class="data row4 col0" >E</td>
-      <td id="T_f1dee_row4_col1" class="data row4 col1" >E1, E2, E3, E4, E5</td>
+      <td id="T_714c0_row4_col0" class="data row4 col0" >E</td>
+      <td id="T_714c0_row4_col1" class="data row4 col1" >E1, E2, E3, E4, E5</td>
     </tr>
     <tr>
-      <td id="T_f1dee_row5_col0" class="data row5 col0" >F</td>
-      <td id="T_f1dee_row5_col1" class="data row5 col1" >F1, F2, F3, F4, F5</td>
+      <td id="T_714c0_row5_col0" class="data row5 col0" >F</td>
+      <td id="T_714c0_row5_col1" class="data row5 col1" >F1, F2, F3, F4, F5</td>
     </tr>
     <tr>
-      <td id="T_f1dee_row6_col0" class="data row6 col0" >G</td>
-      <td id="T_f1dee_row6_col1" class="data row6 col1" >G1, G2, G3, G4, G5</td>
+      <td id="T_714c0_row6_col0" class="data row6 col0" >G</td>
+      <td id="T_714c0_row6_col1" class="data row6 col1" >G1, G2, G3, G4, G5</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<p>Aquí vemos que todas las letras de <code class="docutils literal notranslate"><span class="pre">sub_grade</span></code> corresponden a la de <code class="docutils literal notranslate"><span class="pre">grade</span></code> por lo que se podría decir que transmiten la misma información. Sin embargo, la primera mencionada resulta ser más específica e informativa. En este orden de ideas, vamos a eliminar <code class="docutils literal notranslate"><span class="pre">grade</span></code> por motivos de redundancia.</p>
+<p>Aquí vemos que todas las letras de <code class="docutils literal notranslate"><span class="pre">sub_grade</span></code> corresponden a la de <code class="docutils literal notranslate"><span class="pre">grade</span></code> por lo que se podría decir que transmiten la misma información. Sin embargo, la primera mencionada resulta ser más específica e informativa. Por temas de practicidad a la hora de modelar, se considerá quedarse con <code class="docutils literal notranslate"><span class="pre">grade</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;grade&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sub_grade&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -2188,9 +2205,9 @@ Name: emp_title, Length: 1345310, dtype: object
 <span class="n">dataresult</span> <span class="o">=</span> <span class="n">dataresult</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
 <span class="n">tabla1</span> <span class="o">=</span> <span class="n">dataresult</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Title según purpose&quot;</span><span class="p">)</span> \
-                               <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;10pt&#39;</span><span class="p">,</span> <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="s1">&#39;1px solid black&#39;</span><span class="p">,</span> <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFCCD5&#39;</span><span class="p">,</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">},</span> <span class="p">)</span> \
+                               <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;10pt&#39;</span><span class="p">,</span> <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="s1">&#39;1px solid black&#39;</span><span class="p">,</span> <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">},</span> <span class="p">)</span> \
                                <span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
-                                   <span class="p">{</span><span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;th&#39;</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#FF8FA3&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;font-weight&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)]}</span>
+                                   <span class="p">{</span><span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;th&#39;</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#00b4d8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;font-weight&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)]}</span>
                                <span class="p">])</span> \
                                <span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span> \
                                <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Títulos más comunes&#39;</span><span class="p">],</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">})</span>
@@ -2200,89 +2217,89 @@ Name: emp_title, Length: 1345310, dtype: object
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_bbf70 th {
-  background-color: #FF8FA3;
+#T_bee7e th {
+  background-color: #00b4d8;
   font-weight: bold;
   color: black;
 }
-#T_bbf70_row0_col0, #T_bbf70_row1_col0, #T_bbf70_row2_col0, #T_bbf70_row3_col0, #T_bbf70_row4_col0, #T_bbf70_row5_col0, #T_bbf70_row6_col0, #T_bbf70_row7_col0, #T_bbf70_row8_col0, #T_bbf70_row9_col0, #T_bbf70_row10_col0, #T_bbf70_row11_col0, #T_bbf70_row12_col0, #T_bbf70_row13_col0 {
+#T_bee7e_row0_col0, #T_bee7e_row1_col0, #T_bee7e_row2_col0, #T_bee7e_row3_col0, #T_bee7e_row4_col0, #T_bee7e_row5_col0, #T_bee7e_row6_col0, #T_bee7e_row7_col0, #T_bee7e_row8_col0, #T_bee7e_row9_col0, #T_bee7e_row10_col0, #T_bee7e_row11_col0, #T_bee7e_row12_col0, #T_bee7e_row13_col0 {
   font-size: 10pt;
   border: 1px solid black;
-  background-color: #FFCCD5;
+  background-color: white;
   color: black;
 }
-#T_bbf70_row0_col1, #T_bbf70_row1_col1, #T_bbf70_row2_col1, #T_bbf70_row3_col1, #T_bbf70_row4_col1, #T_bbf70_row5_col1, #T_bbf70_row6_col1, #T_bbf70_row7_col1, #T_bbf70_row8_col1, #T_bbf70_row9_col1, #T_bbf70_row10_col1, #T_bbf70_row11_col1, #T_bbf70_row12_col1, #T_bbf70_row13_col1 {
+#T_bee7e_row0_col1, #T_bee7e_row1_col1, #T_bee7e_row2_col1, #T_bee7e_row3_col1, #T_bee7e_row4_col1, #T_bee7e_row5_col1, #T_bee7e_row6_col1, #T_bee7e_row7_col1, #T_bee7e_row8_col1, #T_bee7e_row9_col1, #T_bee7e_row10_col1, #T_bee7e_row11_col1, #T_bee7e_row12_col1, #T_bee7e_row13_col1 {
   font-size: 10pt;
   border: 1px solid black;
-  background-color: #FFCCD5;
+  background-color: white;
   color: black;
   text-align: center;
 }
 </style>
-<table id="T_bbf70">
+<table id="T_bee7e">
   <caption>Title según purpose</caption>
   <thead>
     <tr>
-      <th id="T_bbf70_level0_col0" class="col_heading level0 col0" >Propósito</th>
-      <th id="T_bbf70_level0_col1" class="col_heading level0 col1" >Títulos más comunes</th>
+      <th id="T_bee7e_level0_col0" class="col_heading level0 col0" >Propósito</th>
+      <th id="T_bee7e_level0_col1" class="col_heading level0 col1" >Títulos más comunes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_bbf70_row0_col0" class="data row0 col0" >car</td>
-      <td id="T_bbf70_row0_col1" class="data row0 col1" >Car financing, Car Loan, Auto Loan</td>
+      <td id="T_bee7e_row0_col0" class="data row0 col0" >car</td>
+      <td id="T_bee7e_row0_col1" class="data row0 col1" >Car financing, Car Loan, Auto Loan</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row1_col0" class="data row1 col0" >credit_card</td>
-      <td id="T_bbf70_row1_col1" class="data row1 col1" >Credit card refinancing, Credit Card Refinance, Credit Card Consolidation</td>
+      <td id="T_bee7e_row1_col0" class="data row1 col0" >credit_card</td>
+      <td id="T_bee7e_row1_col1" class="data row1 col1" >Credit card refinancing, Credit Card Refinance, Credit Card Consolidation</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row2_col0" class="data row2 col0" >debt_consolidation</td>
-      <td id="T_bbf70_row2_col1" class="data row2 col1" >Debt consolidation, Debt Consolidation, debt consolidation</td>
+      <td id="T_bee7e_row2_col0" class="data row2 col0" >debt_consolidation</td>
+      <td id="T_bee7e_row2_col1" class="data row2 col1" >Debt consolidation, Debt Consolidation, debt consolidation</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row3_col0" class="data row3 col0" >educational</td>
-      <td id="T_bbf70_row3_col1" class="data row3 col1" >Student Loan, Education, Personal Loan</td>
+      <td id="T_bee7e_row3_col0" class="data row3 col0" >educational</td>
+      <td id="T_bee7e_row3_col1" class="data row3 col1" >Student Loan, Education, Personal Loan</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row4_col0" class="data row4 col0" >home_improvement</td>
-      <td id="T_bbf70_row4_col1" class="data row4 col1" >Home improvement, Home Improvement, home improvement</td>
+      <td id="T_bee7e_row4_col0" class="data row4 col0" >home_improvement</td>
+      <td id="T_bee7e_row4_col1" class="data row4 col1" >Home improvement, Home Improvement, home improvement</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row5_col0" class="data row5 col0" >house</td>
-      <td id="T_bbf70_row5_col1" class="data row5 col1" >Home buying, House Loan, Home Improvement</td>
+      <td id="T_bee7e_row5_col0" class="data row5 col0" >house</td>
+      <td id="T_bee7e_row5_col1" class="data row5 col1" >Home buying, House Loan, Home Improvement</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row6_col0" class="data row6 col0" >major_purchase</td>
-      <td id="T_bbf70_row6_col1" class="data row6 col1" >Major purchase, Major Purchase Loan, Major Purchase</td>
+      <td id="T_bee7e_row6_col0" class="data row6 col0" >major_purchase</td>
+      <td id="T_bee7e_row6_col1" class="data row6 col1" >Major purchase, Major Purchase Loan, Major Purchase</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row7_col0" class="data row7 col0" >medical</td>
-      <td id="T_bbf70_row7_col1" class="data row7 col1" >Medical expenses, Medical, Medical Loan</td>
+      <td id="T_bee7e_row7_col0" class="data row7 col0" >medical</td>
+      <td id="T_bee7e_row7_col1" class="data row7 col1" >Medical expenses, Medical, Medical Loan</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row8_col0" class="data row8 col0" >moving</td>
-      <td id="T_bbf70_row8_col1" class="data row8 col1" >Moving and relocation, Moving Loan, Moving</td>
+      <td id="T_bee7e_row8_col0" class="data row8 col0" >moving</td>
+      <td id="T_bee7e_row8_col1" class="data row8 col1" >Moving and relocation, Moving Loan, Moving</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row9_col0" class="data row9 col0" >other</td>
-      <td id="T_bbf70_row9_col1" class="data row9 col1" >Other, Personal Loan, Personal</td>
+      <td id="T_bee7e_row9_col0" class="data row9 col0" >other</td>
+      <td id="T_bee7e_row9_col1" class="data row9 col1" >Other, Personal Loan, Personal</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row10_col0" class="data row10 col0" >renewable_energy</td>
-      <td id="T_bbf70_row10_col1" class="data row10 col1" >Green loan, Green Loan, Renewable Energy</td>
+      <td id="T_bee7e_row10_col0" class="data row10 col0" >renewable_energy</td>
+      <td id="T_bee7e_row10_col1" class="data row10 col1" >Green loan, Green Loan, Renewable Energy</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row11_col0" class="data row11 col0" >small_business</td>
-      <td id="T_bbf70_row11_col1" class="data row11 col1" >Business, Small Business Loan, Business Loan</td>
+      <td id="T_bee7e_row11_col0" class="data row11 col0" >small_business</td>
+      <td id="T_bee7e_row11_col1" class="data row11 col1" >Business, Small Business Loan, Business Loan</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row12_col0" class="data row12 col0" >vacation</td>
-      <td id="T_bbf70_row12_col1" class="data row12 col1" >Vacation, vacation, Vacation Loan</td>
+      <td id="T_bee7e_row12_col0" class="data row12 col0" >vacation</td>
+      <td id="T_bee7e_row12_col1" class="data row12 col1" >Vacation, vacation, Vacation Loan</td>
     </tr>
     <tr>
-      <td id="T_bbf70_row13_col0" class="data row13 col0" >wedding</td>
-      <td id="T_bbf70_row13_col1" class="data row13 col1" >Wedding Loan, Wedding, Wedding expenses</td>
+      <td id="T_bee7e_row13_col0" class="data row13 col0" >wedding</td>
+      <td id="T_bee7e_row13_col1" class="data row13 col1" >Wedding Loan, Wedding, Wedding expenses</td>
     </tr>
   </tbody>
 </table>
@@ -2309,9 +2326,9 @@ Name: emp_title, Length: 1345310, dtype: object
 <span class="n">unicocounts_df</span> <span class="o">=</span> <span class="n">filtered_counts</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Valores Únicos&#39;</span><span class="p">)</span>
 
 <span class="n">tabla2</span> <span class="o">=</span> <span class="n">unicocounts_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Variables con un solo valor único&quot;</span><span class="p">)</span> \
-                               <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;10pt&#39;</span><span class="p">,</span> <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="s1">&#39;1px solid black&#39;</span><span class="p">,</span> <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFCCD5&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">})</span> \
+                               <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;10pt&#39;</span><span class="p">,</span> <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="s1">&#39;1px solid black&#39;</span><span class="p">,</span> <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">})</span> \
                                <span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
-                                   <span class="p">{</span><span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;th&#39;</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#FF8FA3&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;font-weight&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)]}</span>
+                                   <span class="p">{</span><span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;th&#39;</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#00b4d8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;font-weight&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)]}</span>
                                <span class="p">])</span> \
                                <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Valores Únicos&#39;</span><span class="p">],</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">})</span>
 <span class="n">display</span><span class="p">(</span><span class="n">tabla2</span><span class="p">)</span>
@@ -2320,47 +2337,47 @@ Name: emp_title, Length: 1345310, dtype: object
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_f5996 th {
-  background-color: #FF8FA3;
+#T_f4d88 th {
+  background-color: #00b4d8;
   font-weight: bold;
   color: black;
 }
-#T_f5996_row0_col0, #T_f5996_row1_col0, #T_f5996_row2_col0, #T_f5996_row3_col0, #T_f5996_row4_col0 {
+#T_f4d88_row0_col0, #T_f4d88_row1_col0, #T_f4d88_row2_col0, #T_f4d88_row3_col0, #T_f4d88_row4_col0 {
   font-size: 10pt;
   border: 1px solid black;
-  background-color: #FFCCD5;
+  background-color: white;
   color: black;
   text-align: center;
 }
 </style>
-<table id="T_f5996">
+<table id="T_f4d88">
   <caption>Variables con un solo valor único</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_f5996_level0_col0" class="col_heading level0 col0" >Valores Únicos</th>
+      <th id="T_f4d88_level0_col0" class="col_heading level0 col0" >Valores Únicos</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_f5996_level0_row0" class="row_heading level0 row0" >pymnt_plan</th>
-      <td id="T_f5996_row0_col0" class="data row0 col0" >1</td>
+      <th id="T_f4d88_level0_row0" class="row_heading level0 row0" >pymnt_plan</th>
+      <td id="T_f4d88_row0_col0" class="data row0 col0" >1</td>
     </tr>
     <tr>
-      <th id="T_f5996_level0_row1" class="row_heading level0 row1" >out_prncp</th>
-      <td id="T_f5996_row1_col0" class="data row1 col0" >1</td>
+      <th id="T_f4d88_level0_row1" class="row_heading level0 row1" >out_prncp</th>
+      <td id="T_f4d88_row1_col0" class="data row1 col0" >1</td>
     </tr>
     <tr>
-      <th id="T_f5996_level0_row2" class="row_heading level0 row2" >out_prncp_inv</th>
-      <td id="T_f5996_row2_col0" class="data row2 col0" >1</td>
+      <th id="T_f4d88_level0_row2" class="row_heading level0 row2" >out_prncp_inv</th>
+      <td id="T_f4d88_row2_col0" class="data row2 col0" >1</td>
     </tr>
     <tr>
-      <th id="T_f5996_level0_row3" class="row_heading level0 row3" >policy_code</th>
-      <td id="T_f5996_row3_col0" class="data row3 col0" >1</td>
+      <th id="T_f4d88_level0_row3" class="row_heading level0 row3" >policy_code</th>
+      <td id="T_f4d88_row3_col0" class="data row3 col0" >1</td>
     </tr>
     <tr>
-      <th id="T_f5996_level0_row4" class="row_heading level0 row4" >hardship_flag</th>
-      <td id="T_f5996_row4_col0" class="data row4 col0" >1</td>
+      <th id="T_f4d88_level0_row4" class="row_heading level0 row4" >hardship_flag</th>
+      <td id="T_f4d88_row4_col0" class="data row4 col0" >1</td>
     </tr>
   </tbody>
 </table>
@@ -2420,8 +2437,164 @@ dtype: int64
 <h4><strong>Variables post-predicción</strong><a class="headerlink" href="#variables-post-prediccion" title="Link to this heading">#</a></h4>
 <p>Un aspecto importante a considerar es la posible fuga de información en el conjunto de datos.</p>
 <p>Para este proyecto se realizaron distintas investigaciones con el fin de comprender a qué corresponde cada variable. En los trabajos analizados se compartía el diccionario correspondiente a este dataset (no disponible oficialmente para Colombia) y se identificó la existencia de variables asociadas a la etapa post de nuestra predicción objetivo.</p>
-<p>A continuación, presentamos el diccionario de variables tomado del trabajo <a class="reference external" href="https://www.kaggle.com/code/amirtharajanpks/lending-club-eda"><em>Lending Club EDA</em> (Amirtharajanpks, 2019)</a>.</p>
-<p>aqui va el diccionario</p>
+<p>A continuación, presentamos el diccionario de variables tomado del trabajo <a class="reference external" href="https://www.kaggle.com/code/amirtharajanpks/lending-club-eda"><em>Lending Club EDA</em> (Amirtharajanpks, 2019)</a>, en el cual resaltaremos aquellas que revelan datos que no se deberían saber durante la etapa de predicción.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>LoanStatNew</p></th>
+<th class="head"><p>Descripción</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>acc_now_delinq</p></td>
+<td><p>Número de cuentas en las que el prestatario actualmente está en mora.</p></td>
+</tr>
+<tr class="row-odd"><td><p>acc_open_past_24mths</p></td>
+<td><p>Número de cuentas abiertas en los últimos 24 meses.</p></td>
+</tr>
+<tr class="row-even"><td><p>addr_state</p></td>
+<td><p>Estado proporcionado por el prestatario en la solicitud de préstamo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>all_util</p></td>
+<td><p>Balance en relación con el límite de crédito en todas las cuentas.</p></td>
+</tr>
+<tr class="row-even"><td><p>annual_inc</p></td>
+<td><p>Ingreso anual auto-reportado proporcionado por el prestatario durante el registro.</p></td>
+</tr>
+<tr class="row-odd"><td><p>annual_inc_joint</p></td>
+<td><p>Ingreso anual combinado auto-reportado por los co-prestatarios durante el registro.</p></td>
+</tr>
+<tr class="row-even"><td><p>application_type</p></td>
+<td><p>Indica si el préstamo es una solicitud individual o conjunta con dos co-prestatarios.</p></td>
+</tr>
+<tr class="row-odd"><td><p>avg_cur_bal</p></td>
+<td><p>Saldo promedio actual de todas las cuentas.</p></td>
+</tr>
+<tr class="row-even"><td><p>bc_open_to_buy</p></td>
+<td><p>Total disponible para gastar en tarjetas de crédito revolventes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bc_util</p></td>
+<td><p>Proporción del saldo actual respecto al límite de crédito en todas las cuentas de tarjeta bancaria.</p></td>
+</tr>
+<tr class="row-even"><td><p>chargeoff_within_12_mths</p></td>
+<td><p>Número de deudas incobrables en los últimos 12 meses.</p></td>
+</tr>
+<tr class="row-odd"><td><p>collection_recovery_fee</p></td>
+<td><p>Tarifas de recuperación tras incobrables.</p></td>
+</tr>
+<tr class="row-even"><td><p>collections_12_mths_ex_med</p></td>
+<td><p>Número de cobros en los últimos 12 meses excluyendo cobros médicos.</p></td>
+</tr>
+<tr class="row-odd"><td><p>delinq_2yrs</p></td>
+<td><p>Número de incidencias de morosidad de más de 30 días en los últimos 2 años.</p></td>
+</tr>
+<tr class="row-even"><td><p>delinq_amnt</p></td>
+<td><p>Monto pendiente de las cuentas en las que el prestatario está en mora.</p></td>
+</tr>
+<tr class="row-odd"><td><p>desc</p></td>
+<td><p>Descripción del préstamo proporcionada por el prestatario.</p></td>
+</tr>
+<tr class="row-even"><td><p>dti</p></td>
+<td><p>Ratio calculado usando los pagos mensuales totales del prestatario sobre todas las obligaciones de deuda, excluyendo hipoteca y el préstamo solicitado, dividido por su ingreso mensual auto-reportado.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dti_joint</p></td>
+<td><p>Ratio calculado usando los pagos mensuales totales de los co-prestatarios sobre todas las obligaciones de deuda, excluyendo hipotecas y el préstamo solicitado, dividido por el ingreso combinado mensual auto-reportado de los co-prestatarios.</p></td>
+</tr>
+<tr class="row-even"><td><p>earliest_cr_line</p></td>
+<td><p>Mes en que se abrió la primera línea de crédito reportada del prestatario.</p></td>
+</tr>
+<tr class="row-odd"><td><p>emp_length</p></td>
+<td><p>Antigüedad laboral en años (0 = menos de 1 año, 10 = 10 años o más).</p></td>
+</tr>
+<tr class="row-even"><td><p>emp_title</p></td>
+<td><p>Cargo o puesto del prestatario al solicitar el préstamo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>fico_range_high</p></td>
+<td><p>Límite superior del rango de FICO del prestatario al momento del préstamo.</p></td>
+</tr>
+<tr class="row-even"><td><p>fico_range_low</p></td>
+<td><p>Límite inferior del rango de FICO del prestatario al momento del préstamo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>funded_amnt</p></td>
+<td><p>Monto total comprometido para el préstamo en ese momento.</p></td>
+</tr>
+<tr class="row-even"><td><p>funded_amnt_inv</p></td>
+<td><p>Monto total aportado por inversores para ese préstamo en ese momento.</p></td>
+</tr>
+<tr class="row-odd"><td><p>grade</p></td>
+<td><p>Calificación de préstamo asignada por LC.</p></td>
+</tr>
+<tr class="row-even"><td><p>home_ownership</p></td>
+<td><p>Estado de propiedad de vivienda proporcionado por el prestatario (RENT, OWN, MORTGAGE, OTHER).</p></td>
+</tr>
+<tr class="row-odd"><td><p>id</p></td>
+<td><p>ID único asignado por LC para el préstamo.</p></td>
+</tr>
+<tr class="row-even"><td><p>il_util</p></td>
+<td><p>Proporción del saldo actual respecto al límite de crédito en cuentas a plazos.</p></td>
+</tr>
+<tr class="row-odd"><td><p>initial_list_status</p></td>
+<td><p>Estado inicial del listado del préstamo (W, F).</p></td>
+</tr>
+<tr class="row-even"><td><p>inq_fi</p></td>
+<td><p>Número de consultas de financiamiento personal.</p></td>
+</tr>
+<tr class="row-odd"><td><p>inq_last_12m</p></td>
+<td><p>Número de consultas de crédito en los últimos 12 meses.</p></td>
+</tr>
+<tr class="row-even"><td><p>inq_last_6mths</p></td>
+<td><p>Número de consultas de crédito en los últimos 6 meses (excluyendo autos e hipotecas).</p></td>
+</tr>
+<tr class="row-odd"><td><p>installment</p></td>
+<td><p>Pago mensual que el prestatario debe realizar si se aprueba el préstamo.</p></td>
+</tr>
+<tr class="row-even"><td><p>int_rate</p></td>
+<td><p>Tasa de interés del préstamo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>issue_d</p></td>
+<td><p>Mes en que se financió el préstamo.</p></td>
+</tr>
+<tr class="row-even"><td><p>last_credit_pull_d</p></td>
+<td><p>Último mes en que LC revisó el crédito para este préstamo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>last_fico_range_high</p></td>
+<td><p>Límite superior del rango de FICO más reciente del prestatario.</p></td>
+</tr>
+<tr class="row-even"><td><p>last_fico_range_low</p></td>
+<td><p>Límite inferior del rango de FICO más reciente del prestatario.</p></td>
+</tr>
+<tr class="row-odd"><td><p>last_pymnt_amnt</p></td>
+<td><p>Último monto total recibido de pago.</p></td>
+</tr>
+<tr class="row-even"><td><p>last_pymnt_d</p></td>
+<td><p>Último mes en que se recibió un pago.</p></td>
+</tr>
+<tr class="row-odd"><td><p>loan_amnt</p></td>
+<td><p>Monto solicitado originalmente por el prestatario. Si se reduce, se refleja aquí.</p></td>
+</tr>
+<tr class="row-even"><td><p>loan_status</p></td>
+<td><p>Estado actual del préstamo.</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_bal_bc</p></td>
+<td><p>Saldo máximo actual en todas las cuentas revolventes.</p></td>
+</tr>
+<tr class="row-even"><td><p>member_id</p></td>
+<td><p>ID único asignado al miembro prestatario.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mo_sin_old_il_acct</p></td>
+<td><p>Meses desde que se abrió la cuenta a plazos más antigua.</p></td>
+</tr>
+<tr class="row-even"><td><p>mo_sin_old_rev_tl_op</p></td>
+<td><p>Meses desde que se abrió la cuenta revolvente más antigua.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mo_sin_rcnt_rev_tl_op</p></td>
+<td><p>Meses desde que se abrió la cuenta revolvente más reciente.</p></td>
+</tr>
+<tr class="row-even"><td><p>mo_sin_rcnt_tl</p></td>
+<td><p>Meses desde que se abrió la cuenta más reciente.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>Al considerar estas definiciones, podemos entonces proceder a eliminar las siguientes variables que hablan del futuro de nuestro contexto.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2491,7 +2664,7 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>En este apartado, lo que hicimos fue pasar las variables de fecha a tipo numérico basado en la antigüedad o cantidad de tiempo que ha pasado.</p>
+<p>En este código se toman las variables que corresponden a fecha y se pasan a ese formato. Una vez proporcionan la información tal como se espera, se considera crear una nueva variable denominada <code class="docutils literal notranslate"><span class="pre">credit_history_years</span></code>, la cual corresponde a la cantidad de años que han pasado desde el primer crédito obtenido por la persona.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
@@ -2514,7 +2687,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sub_grade               0.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>grade                   0.0
 home_ownership          0.0
 verification_status     0.0
 purpose                 0.0
@@ -2528,6 +2701,7 @@ dtype: float64
 </div>
 </div>
 </div>
+<p>Luego de haber hecho los respectivos mapeos y transformaciones pertinentes, observamos que las variables no cuentan con datos faltantes. Es decir, no requieren imputación.</p>
 </section>
 </section>
 <section id="numericas">
@@ -2848,90 +3022,2434 @@ dtype: float64
     </tr>
   </tbody>
 </table>
-<p>1345310 rows × 76 columns</p>
+<p>1345310 rows × 60 columns</p>
 </div></div></div>
 </div>
+<section id="id1">
+<h5><strong>Imputación</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datanum</span> <span class="o">=</span> <span class="n">datanum</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
-
-<span class="n">missing_percentage_numeric</span> <span class="o">=</span> <span class="p">(</span><span class="n">datanum</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
-
-<span class="c1"># --- 4. Filtrar los resultados para mostrar solo los porcentajes mayores a 0 ---</span>
-<span class="n">missing_percentage_numeric_gt_0</span> <span class="o">=</span> <span class="n">missing_percentage_numeric</span><span class="p">[</span><span class="n">missing_percentage_numeric</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># --- 5. Imprimir el resultado ---</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Porcentaje de valores faltantes (mayor a 0) en variables numéricas:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">missing_percentage_numeric_gt_0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missingnum</span> <span class="o">=</span> <span class="n">datanum</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">missingnum</span> <span class="o">=</span> <span class="n">missingnum</span><span class="p">[</span><span class="n">missingnum</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">missingnum</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Porcentaje de valores faltantes (mayor a 0) en variables numéricas:
-emp_length                         5.835904
-dti                                0.027800
-inq_last_6mths                     0.000074
-mths_since_last_delinq            50.452535
-revol_util                         0.063703
-collections_12_mths_ex_med         0.004163
-tot_coll_amt                       5.019438
-tot_cur_bal                        5.019438
-open_acc_6m                       60.039173
-open_act_il                       60.039099
-open_il_12m                       60.039099
-open_il_24m                       60.039099
-mths_since_rcnt_il                61.095807
-total_bal_il                      60.039099
-il_util                           65.434287
-open_rv_12m                       60.039099
-open_rv_24m                       60.039099
-max_bal_bc                        60.039099
-all_util                          60.043038
-total_rev_hi_lim                   5.019438
-inq_fi                            60.039099
-total_cu_tl                       60.039173
-inq_last_12m                      60.039173
-acc_open_past_24mths               3.514506
-avg_cur_bal                        5.021073
-bc_open_to_buy                     4.544900
-bc_util                            4.602062
-chargeoff_within_12_mths           0.004163
-mo_sin_old_il_acct                 7.847634
-mo_sin_old_rev_tl_op               5.019512
-mo_sin_rcnt_rev_tl_op              5.019512
-mo_sin_rcnt_tl                     5.019438
-mort_acc                           3.514506
-mths_since_recent_bc               4.476366
-mths_since_recent_inq             12.939100
-mths_since_recent_revol_delinq    66.553285
-num_accts_ever_120_pd              5.019438
-num_actv_bc_tl                     5.019438
-num_actv_rev_tl                    5.019438
-num_bc_sats                        4.150791
-num_bc_tl                          5.019438
-num_il_tl                          5.019438
-num_op_rev_tl                      5.019438
-num_rev_accts                      5.019512
-num_rev_tl_bal_gt_0                5.019438
-num_sats                           4.150791
-num_tl_120dpd_2m                   8.726688
-num_tl_30dpd                       5.019438
-num_tl_90g_dpd_24m                 5.019438
-num_tl_op_past_12m                 5.019438
-pct_tl_nvr_dlq                     5.030885
-percent_bc_gt_75                   4.575525
-pub_rec_bankruptcies               0.051810
-tax_liens                          0.002899
-tot_hi_cred_lim                    5.019438
-total_bal_ex_mort                  3.514506
-total_bc_limit                     3.514506
-total_il_high_credit_limit         5.019438
-dtype: float64
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_fractions</span> <span class="o">=</span> <span class="n">datanum</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">datanum</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">missing_fractions</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Incompetitud de las variables&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fracción de datos faltantes&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cantidad de variables&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Cantidad de variables&#39;)
+</pre></div>
+</div>
+<img alt="_images/be0e17ab59b1944333a9de16252d35d640ce9be83d68d0f1c1f0ba84f6d0ea51.png" src="_images/be0e17ab59b1944333a9de16252d35d640ce9be83d68d0f1c1f0ba84f6d0ea51.png" />
+</div>
+</div>
+<p>El total de variables numéricas que tienen datos faltantes es de <strong>42</strong> y estos porcentajes varían entre <strong>0% y 12% (aproximadamente)</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datanum</span> <span class="o">=</span> <span class="n">datanum</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">datanum</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+
+<span class="n">data</span><span class="p">[</span><span class="n">datanum</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">datanum</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para resolver el tema de los datos faltantes en el caso de las tipo numéricas, imputamos todas las variables con la mediana correspondiente a cada columna.</p>
 </section>
+</section>
+</section>
+</section>
+<section id="analisis-de-las-variables">
+<h2><strong>Análisis de las variables</strong><a class="headerlink" href="#analisis-de-las-variables" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_vars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">cat_vars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cantidad de variables numéricas:&quot;</span><span class="p">,</span> <span class="n">num_vars</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cantidad de variables categóricas:&quot;</span><span class="p">,</span> <span class="n">cat_vars</span><span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cantidad de variables numéricas: 60
+Cantidad de variables categóricas: 9
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>loan_amnt</th>
+      <th>funded_amnt</th>
+      <th>funded_amnt_inv</th>
+      <th>term</th>
+      <th>int_rate</th>
+      <th>installment</th>
+      <th>grade</th>
+      <th>emp_length</th>
+      <th>home_ownership</th>
+      <th>annual_inc</th>
+      <th>verification_status</th>
+      <th>purpose</th>
+      <th>addr_state</th>
+      <th>dti</th>
+      <th>delinq_2yrs</th>
+      <th>fico_range_low</th>
+      <th>fico_range_high</th>
+      <th>inq_last_6mths</th>
+      <th>open_acc</th>
+      <th>pub_rec</th>
+      <th>revol_bal</th>
+      <th>revol_util</th>
+      <th>total_acc</th>
+      <th>initial_list_status</th>
+      <th>collections_12_mths_ex_med</th>
+      <th>application_type</th>
+      <th>acc_now_delinq</th>
+      <th>tot_coll_amt</th>
+      <th>tot_cur_bal</th>
+      <th>total_rev_hi_lim</th>
+      <th>acc_open_past_24mths</th>
+      <th>avg_cur_bal</th>
+      <th>bc_open_to_buy</th>
+      <th>bc_util</th>
+      <th>chargeoff_within_12_mths</th>
+      <th>delinq_amnt</th>
+      <th>mo_sin_old_il_acct</th>
+      <th>mo_sin_old_rev_tl_op</th>
+      <th>mo_sin_rcnt_rev_tl_op</th>
+      <th>mo_sin_rcnt_tl</th>
+      <th>mort_acc</th>
+      <th>mths_since_recent_bc</th>
+      <th>mths_since_recent_inq</th>
+      <th>num_accts_ever_120_pd</th>
+      <th>num_actv_bc_tl</th>
+      <th>num_actv_rev_tl</th>
+      <th>num_bc_sats</th>
+      <th>num_bc_tl</th>
+      <th>num_il_tl</th>
+      <th>num_op_rev_tl</th>
+      <th>num_rev_accts</th>
+      <th>num_rev_tl_bal_gt_0</th>
+      <th>num_sats</th>
+      <th>num_tl_120dpd_2m</th>
+      <th>num_tl_30dpd</th>
+      <th>num_tl_90g_dpd_24m</th>
+      <th>num_tl_op_past_12m</th>
+      <th>pct_tl_nvr_dlq</th>
+      <th>percent_bc_gt_75</th>
+      <th>pub_rec_bankruptcies</th>
+      <th>tax_liens</th>
+      <th>tot_hi_cred_lim</th>
+      <th>total_bal_ex_mort</th>
+      <th>total_bc_limit</th>
+      <th>total_il_high_credit_limit</th>
+      <th>disbursement_method</th>
+      <th>debt_settlement_flag</th>
+      <th>credit_history_years</th>
+      <th>default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3600.0</td>
+      <td>3600.0</td>
+      <td>3600.0</td>
+      <td>36</td>
+      <td>13.99</td>
+      <td>123.03</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>55000.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>PA</td>
+      <td>5.91</td>
+      <td>0.0</td>
+      <td>675.0</td>
+      <td>679.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>2765.0</td>
+      <td>29.7</td>
+      <td>13.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>722.0</td>
+      <td>144904.0</td>
+      <td>9300.0</td>
+      <td>4.0</td>
+      <td>20701.0</td>
+      <td>1506.0</td>
+      <td>37.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>148.0</td>
+      <td>128.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>4.0</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>76.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>178050.0</td>
+      <td>7746.0</td>
+      <td>2400.0</td>
+      <td>13734.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>12.342466</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24700.0</td>
+      <td>24700.0</td>
+      <td>24700.0</td>
+      <td>36</td>
+      <td>11.99</td>
+      <td>820.28</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>65000.0</td>
+      <td>Not Verified</td>
+      <td>small_business</td>
+      <td>SD</td>
+      <td>16.06</td>
+      <td>1.0</td>
+      <td>715.0</td>
+      <td>719.0</td>
+      <td>4.0</td>
+      <td>22.0</td>
+      <td>0.0</td>
+      <td>21470.0</td>
+      <td>19.2</td>
+      <td>38.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>204396.0</td>
+      <td>111800.0</td>
+      <td>4.0</td>
+      <td>9733.0</td>
+      <td>57830.0</td>
+      <td>27.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>113.0</td>
+      <td>192.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>13.0</td>
+      <td>17.0</td>
+      <td>6.0</td>
+      <td>20.0</td>
+      <td>27.0</td>
+      <td>5.0</td>
+      <td>22.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>97.4</td>
+      <td>7.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>314017.0</td>
+      <td>39475.0</td>
+      <td>79300.0</td>
+      <td>24667.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>16.010959</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20000.0</td>
+      <td>20000.0</td>
+      <td>20000.0</td>
+      <td>60</td>
+      <td>10.78</td>
+      <td>432.66</td>
+      <td>B</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>63000.0</td>
+      <td>Not Verified</td>
+      <td>home_improvement</td>
+      <td>IL</td>
+      <td>10.78</td>
+      <td>0.0</td>
+      <td>695.0</td>
+      <td>699.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>7869.0</td>
+      <td>56.2</td>
+      <td>18.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Joint App</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>189699.0</td>
+      <td>14000.0</td>
+      <td>6.0</td>
+      <td>31617.0</td>
+      <td>2737.0</td>
+      <td>55.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>125.0</td>
+      <td>184.0</td>
+      <td>14.0</td>
+      <td>14.0</td>
+      <td>5.0</td>
+      <td>101.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>7.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>50.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>218418.0</td>
+      <td>18696.0</td>
+      <td>6200.0</td>
+      <td>14877.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>15.342466</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10400.0</td>
+      <td>10400.0</td>
+      <td>10400.0</td>
+      <td>60</td>
+      <td>22.45</td>
+      <td>289.91</td>
+      <td>F</td>
+      <td>3.0</td>
+      <td>MORTGAGE</td>
+      <td>104433.0</td>
+      <td>Source Verified</td>
+      <td>major_purchase</td>
+      <td>PA</td>
+      <td>25.37</td>
+      <td>1.0</td>
+      <td>695.0</td>
+      <td>699.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>21929.0</td>
+      <td>64.5</td>
+      <td>35.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>331730.0</td>
+      <td>34000.0</td>
+      <td>10.0</td>
+      <td>27644.0</td>
+      <td>4567.0</td>
+      <td>77.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>128.0</td>
+      <td>210.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>10.0</td>
+      <td>7.0</td>
+      <td>19.0</td>
+      <td>6.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>96.6</td>
+      <td>60.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>439570.0</td>
+      <td>95768.0</td>
+      <td>20300.0</td>
+      <td>88097.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>17.512329</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11950.0</td>
+      <td>11950.0</td>
+      <td>11950.0</td>
+      <td>36</td>
+      <td>13.44</td>
+      <td>405.18</td>
+      <td>C</td>
+      <td>4.0</td>
+      <td>RENT</td>
+      <td>34000.0</td>
+      <td>Source Verified</td>
+      <td>debt_consolidation</td>
+      <td>GA</td>
+      <td>10.20</td>
+      <td>0.0</td>
+      <td>690.0</td>
+      <td>694.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>8822.0</td>
+      <td>68.4</td>
+      <td>6.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>12798.0</td>
+      <td>12900.0</td>
+      <td>0.0</td>
+      <td>2560.0</td>
+      <td>844.0</td>
+      <td>91.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>338.0</td>
+      <td>54.0</td>
+      <td>32.0</td>
+      <td>32.0</td>
+      <td>0.0</td>
+      <td>36.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>16900.0</td>
+      <td>12798.0</td>
+      <td>9400.0</td>
+      <td>4000.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>28.186301</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2260688</th>
+      <td>18000.0</td>
+      <td>18000.0</td>
+      <td>18000.0</td>
+      <td>60</td>
+      <td>9.49</td>
+      <td>377.95</td>
+      <td>B</td>
+      <td>5.0</td>
+      <td>OWN</td>
+      <td>130000.0</td>
+      <td>Not Verified</td>
+      <td>home_improvement</td>
+      <td>TX</td>
+      <td>20.59</td>
+      <td>0.0</td>
+      <td>735.0</td>
+      <td>739.0</td>
+      <td>1.0</td>
+      <td>17.0</td>
+      <td>0.0</td>
+      <td>23833.0</td>
+      <td>34.0</td>
+      <td>39.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>168758.0</td>
+      <td>70100.0</td>
+      <td>6.0</td>
+      <td>9927.0</td>
+      <td>4161.0</td>
+      <td>68.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>113.0</td>
+      <td>146.0</td>
+      <td>17.0</td>
+      <td>15.0</td>
+      <td>3.0</td>
+      <td>17.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>9.0</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>21.0</td>
+      <td>10.0</td>
+      <td>15.0</td>
+      <td>9.0</td>
+      <td>17.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>33.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>275356.0</td>
+      <td>54349.0</td>
+      <td>13100.0</td>
+      <td>77756.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>12.260274</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2260690</th>
+      <td>29400.0</td>
+      <td>29400.0</td>
+      <td>29400.0</td>
+      <td>60</td>
+      <td>13.99</td>
+      <td>683.94</td>
+      <td>C</td>
+      <td>9.0</td>
+      <td>MORTGAGE</td>
+      <td>180792.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>CA</td>
+      <td>22.03</td>
+      <td>0.0</td>
+      <td>705.0</td>
+      <td>709.0</td>
+      <td>1.0</td>
+      <td>16.0</td>
+      <td>0.0</td>
+      <td>77480.0</td>
+      <td>85.2</td>
+      <td>32.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>663465.0</td>
+      <td>86500.0</td>
+      <td>4.0</td>
+      <td>44231.0</td>
+      <td>8427.0</td>
+      <td>69.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>145.0</td>
+      <td>174.0</td>
+      <td>31.0</td>
+      <td>8.0</td>
+      <td>3.0</td>
+      <td>70.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>9.0</td>
+      <td>17.0</td>
+      <td>8.0</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>16.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>100.0</td>
+      <td>42.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>719056.0</td>
+      <td>148305.0</td>
+      <td>56500.0</td>
+      <td>95702.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>14.597260</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2260691</th>
+      <td>32000.0</td>
+      <td>32000.0</td>
+      <td>32000.0</td>
+      <td>60</td>
+      <td>14.49</td>
+      <td>752.74</td>
+      <td>C</td>
+      <td>3.0</td>
+      <td>MORTGAGE</td>
+      <td>157000.0</td>
+      <td>Source Verified</td>
+      <td>home_improvement</td>
+      <td>AZ</td>
+      <td>10.34</td>
+      <td>0.0</td>
+      <td>735.0</td>
+      <td>739.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>0.0</td>
+      <td>111598.0</td>
+      <td>27.4</td>
+      <td>18.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>408701.0</td>
+      <td>207500.0</td>
+      <td>10.0</td>
+      <td>29193.0</td>
+      <td>14118.0</td>
+      <td>10.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>53.0</td>
+      <td>63.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>8.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+      <td>4.0</td>
+      <td>11.0</td>
+      <td>11.0</td>
+      <td>8.0</td>
+      <td>14.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>524379.0</td>
+      <td>122872.0</td>
+      <td>15800.0</td>
+      <td>23879.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>5.339726</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2260692</th>
+      <td>16000.0</td>
+      <td>16000.0</td>
+      <td>16000.0</td>
+      <td>60</td>
+      <td>12.79</td>
+      <td>362.34</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>RENT</td>
+      <td>150000.0</td>
+      <td>Not Verified</td>
+      <td>medical</td>
+      <td>NC</td>
+      <td>12.25</td>
+      <td>0.0</td>
+      <td>665.0</td>
+      <td>669.0</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>4.0</td>
+      <td>7700.0</td>
+      <td>55.0</td>
+      <td>28.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>65797.0</td>
+      <td>14000.0</td>
+      <td>9.0</td>
+      <td>5982.0</td>
+      <td>2720.0</td>
+      <td>73.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>147.0</td>
+      <td>229.0</td>
+      <td>17.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>17.0</td>
+      <td>12.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>15.0</td>
+      <td>6.0</td>
+      <td>11.0</td>
+      <td>4.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>92.0</td>
+      <td>50.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>87473.0</td>
+      <td>65797.0</td>
+      <td>10100.0</td>
+      <td>73473.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>19.180822</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2260697</th>
+      <td>24000.0</td>
+      <td>24000.0</td>
+      <td>24000.0</td>
+      <td>60</td>
+      <td>14.49</td>
+      <td>564.56</td>
+      <td>C</td>
+      <td>6.0</td>
+      <td>RENT</td>
+      <td>110000.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>FL</td>
+      <td>18.30</td>
+      <td>0.0</td>
+      <td>660.0</td>
+      <td>664.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>17641.0</td>
+      <td>68.1</td>
+      <td>31.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>62426.0</td>
+      <td>25900.0</td>
+      <td>7.0</td>
+      <td>6243.0</td>
+      <td>4660.0</td>
+      <td>77.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>132.0</td>
+      <td>206.0</td>
+      <td>9.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>15.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>24.0</td>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>96.2</td>
+      <td>40.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>84664.0</td>
+      <td>62426.0</td>
+      <td>20700.0</td>
+      <td>58764.0</td>
+      <td>Cash</td>
+      <td>Y</td>
+      <td>17.265753</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>1345310 rows × 69 columns</p>
+</div></div></div>
+</div>
+<p>Después de haber hecho un recorrido por la base de datos y haber encontrado variables que no eran de significancia o utilidad, quedamos con un conjunto de datos con <strong>1345310</strong> filas y <strong>69</strong> columnas.</p>
+<p>Procederemos ahora a analizar las variables basado en su tipo y considerando la distribución de la variable objetivo en cada una.</p>
+<section id="id2">
+<h3><strong>Numéricas</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>   
+
+<span class="n">num_vars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">num_vars</span><span class="p">:</span>
+    <span class="n">num_vars</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_grid</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
+    <span class="n">per_page</span> <span class="o">=</span> <span class="n">cols</span> <span class="o">*</span> <span class="n">rows</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">per_page</span><span class="p">):</span>
+        <span class="n">subset</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">per_page</span><span class="p">]</span>
+        
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">cols</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">rows</span><span class="p">))</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subset</span><span class="p">):</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;hist&quot;</span><span class="p">:</span>
+                <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histograma: </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span>
+                <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Boxplot: </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Quitar ejes vacíos si sobran</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)):</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">delaxes</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plot_grid</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_vars</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plot_grid</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_vars</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/384681bd57e030f131538be2adc8262d174a409f9bffcb3a251f4762b2b732d6.png" src="_images/384681bd57e030f131538be2adc8262d174a409f9bffcb3a251f4762b2b732d6.png" />
+<img alt="_images/963a591ff9da45fa433cf77a640137e1a6563a7bba1ea3195ded10617208beeb.png" src="_images/963a591ff9da45fa433cf77a640137e1a6563a7bba1ea3195ded10617208beeb.png" />
+<img alt="_images/9e510f58826a4e7df1db88888fa2575f67f9e798cc7ae379528b18b9f44c8dfd.png" src="_images/9e510f58826a4e7df1db88888fa2575f67f9e798cc7ae379528b18b9f44c8dfd.png" />
+<img alt="_images/884aca231971ecbbc2dd5d02b2fc7dfce9d734cfdbfaac5444ca2b852ef84218.png" src="_images/884aca231971ecbbc2dd5d02b2fc7dfce9d734cfdbfaac5444ca2b852ef84218.png" />
+<img alt="_images/8ce8b54788d0e2d0987a4ee14017e34534b165b5cfa7898d5be18770f209e8a0.png" src="_images/8ce8b54788d0e2d0987a4ee14017e34534b165b5cfa7898d5be18770f209e8a0.png" />
+<img alt="_images/5d272a56d1cb0e4ed11181c236c8e83f584689bc2ddda1b4439e263eb776a954.png" src="_images/5d272a56d1cb0e4ed11181c236c8e83f584689bc2ddda1b4439e263eb776a954.png" />
+<img alt="_images/8d5b3d27f6bf85a6d576c39542419d1eec1abf8277819ed7be992499b9126f17.png" src="_images/8d5b3d27f6bf85a6d576c39542419d1eec1abf8277819ed7be992499b9126f17.png" />
+<img alt="_images/f3523f08bfcfc995ba237ab8727c603bee20b1f4b2a8e102b3a10bab69870e01.png" src="_images/f3523f08bfcfc995ba237ab8727c603bee20b1f4b2a8e102b3a10bab69870e01.png" />
+<img alt="_images/513d652043dbdb750a0381c26a442d528719b758f2b7243e321420d0fbe91253.png" src="_images/513d652043dbdb750a0381c26a442d528719b758f2b7243e321420d0fbe91253.png" />
+<img alt="_images/f21f08ffbea300fd641511781d11446c519734facf7506002b37f96ea2a13ea9.png" src="_images/f21f08ffbea300fd641511781d11446c519734facf7506002b37f96ea2a13ea9.png" />
+<img alt="_images/37ba01e6588e31e2e988d1b19c2d1d3785f93f0a47767dfdb9ba99a37611e9ce.png" src="_images/37ba01e6588e31e2e988d1b19c2d1d3785f93f0a47767dfdb9ba99a37611e9ce.png" />
+<img alt="_images/ba108fe4a0f5343e2d00f4973bff71d7339eb54e8ccb61fc3a92e718b86c4607.png" src="_images/ba108fe4a0f5343e2d00f4973bff71d7339eb54e8ccb61fc3a92e718b86c4607.png" />
+<img alt="_images/38038486915ebca35f41ad746c21105e5c4ab69a7ea12ab24635df586f0dfd32.png" src="_images/38038486915ebca35f41ad746c21105e5c4ab69a7ea12ab24635df586f0dfd32.png" />
+<img alt="_images/b5216e920ef94b6fda57cfa1cda5e8eb2d2050b6e9ddf9fa97b4db45ff205716.png" src="_images/b5216e920ef94b6fda57cfa1cda5e8eb2d2050b6e9ddf9fa97b4db45ff205716.png" />
+<img alt="_images/277621e51868fc4809a07cab0b9ef417ddb304fb74fccdb0de0b14aa396a7131.png" src="_images/277621e51868fc4809a07cab0b9ef417ddb304fb74fccdb0de0b14aa396a7131.png" />
+<img alt="_images/2f69d843884cc89ebfddbe34eae0ab0150559e3143c9398cbef4ec558b49daea.png" src="_images/2f69d843884cc89ebfddbe34eae0ab0150559e3143c9398cbef4ec558b49daea.png" />
+<img alt="_images/9f321f688aff3938da9e87651b5bbdc9df16dcddd2992bcc82711afad25b7461.png" src="_images/9f321f688aff3938da9e87651b5bbdc9df16dcddd2992bcc82711afad25b7461.png" />
+<img alt="_images/12672a3ffac08b4873fba94b524bbca04569e041e860020d146c0ecda4199a0f.png" src="_images/12672a3ffac08b4873fba94b524bbca04569e041e860020d146c0ecda4199a0f.png" />
+<img alt="_images/7cf3fc0ac96f041f5357aadbc3983bf1774a252aa0d18be65e568549ced129d8.png" src="_images/7cf3fc0ac96f041f5357aadbc3983bf1774a252aa0d18be65e568549ced129d8.png" />
+<img alt="_images/944b412c90e1912e733f2cbbdc20333a84ddf5e3f7e6dbfe9be8fce2efcd6d17.png" src="_images/944b412c90e1912e733f2cbbdc20333a84ddf5e3f7e6dbfe9be8fce2efcd6d17.png" />
+</div>
+</div>
+<p>Aspectos generales importantes que se pueden mencionar a partir de estos gráficos son:</p>
+<ul class="simple">
+<li><p>Las variables <code class="docutils literal notranslate"><span class="pre">loan_amnt</span></code>, <code class="docutils literal notranslate"><span class="pre">funded_amnt</span></code> y <code class="docutils literal notranslate"><span class="pre">funded_amnt_inv</span></code> aparentan presentar el mismo comportamiento y distribución. Esto es indicio de correlación entre ellas.</p></li>
+<li><p>En cuanto a las variables <code class="docutils literal notranslate"><span class="pre">installment</span></code>, <code class="docutils literal notranslate"><span class="pre">dti</span></code>, <code class="docutils literal notranslate"><span class="pre">revol_util</span></code>, <code class="docutils literal notranslate"><span class="pre">term</span></code> y <code class="docutils literal notranslate"><span class="pre">credit_history_years</span></code>, se observa una notable distribución entre clases. Notando, más específicamente en los histogramas, diferencias en las líneas de densidad donde la azul está muy por encima de la amarilla.</p></li>
+<li><p>Por otro lado, un par de columnas que también dan indicios de correlación fuerte son <code class="docutils literal notranslate"><span class="pre">fico_range_low</span></code> y <code class="docutils literal notranslate"><span class="pre">fico_range_high</span></code>.</p></li>
+<li><p>Lo mismo ocurre con el grupo de variables <code class="docutils literal notranslate"><span class="pre">mo_sin_rcnt_rev_tl_op</span></code>, <code class="docutils literal notranslate"><span class="pre">mo_sin_rcnt_tl</span></code>, <code class="docutils literal notranslate"><span class="pre">mths_since_recent_bc</span></code>.</p></li>
+<li><p>Cabe mencionar que existe un notoria cantidad de variables que, a la hora de mostrar sus boxplots por clase, evidenciaron datos atípicos. En teoría, estos deberían ser imputados, sin embargo, dado que representan a casos de la vida real, no se relaizará la respectiva imputación para no sesgar la naturaleza real.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3><strong>Categóricas</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+
+<span class="c1"># Seleccionamos las variables categóricas</span>
+<span class="n">cat_vars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># Definimos el tamaño de la cuadrícula</span>
+<span class="n">n_vars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat_vars</span><span class="p">)</span>
+<span class="n">n_cols</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># puedes ajustar el número de columnas</span>
+<span class="n">n_rows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_vars</span> <span class="o">/</span> <span class="n">n_cols</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">n_rows</span><span class="o">*</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>  <span class="c1"># aplanamos en caso de tener más de 1 fila</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cat_vars</span><span class="p">):</span>
+    <span class="c1"># Tabla de proporciones por clase</span>
+    <span class="n">prop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Gráfico de barras apiladas</span>
+    <span class="n">prop</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> por </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Proporción&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="c1"># Si hay subplots vacíos, los eliminamos</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">delaxes</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1acb620d388a153d6fed1b49bd2e4e85fda41ca86422cc8c17ae4cd01583a528.png" src="_images/1acb620d388a153d6fed1b49bd2e4e85fda41ca86422cc8c17ae4cd01583a528.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Al observar estos gráficos que representan la distribución de las clases de la variable objetivo en cada categoría perteneciente a su respectiva columna, podemos afirmar que en la mayoría de los casos, tal como era de esperarse, predominó la de <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">=</span> <span class="pre">0</span></code> que representa a los <strong>Fully Paid</strong>.</p></li>
+<li><p>Sobre la variable <code class="docutils literal notranslate"><span class="pre">grade</span></code>, se puede mencionar que a medida que disminuye el grado asignado, aumentan los registros correspondintes a <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">=</span> <span class="pre">1</span></code>, es decir, <strong>Charged Off</strong>. Esto da indicios de que a menor categoría, mayor es la probabilidad de que se prediga que quedará en mora.</p></li>
+<li><p>Respecto a <code class="docutils literal notranslate"><span class="pre">debt_settlement_flag</span></code>, cabe decir que ocurre algo alejado del comportamiento general. Para esta variable en específico, una de sus categorías está representada en su totalidad por <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">=</span> <span class="pre">1</span></code>.</p></li>
+<li><p>Las variables restantes presentan distribuciones similares, en el sentido de que siempre predomina la clase relacionada con los créditos pagados en su totalidad.</p></li>
+</ul>
+</section>
+<section id="multicolinealidad">
+<h3><strong>Multicolinealidad</strong><a class="headerlink" href="#multicolinealidad" title="Link to this heading">#</a></h3>
+<p>En este apartado, vamos a verificar qué tan relacionadas están las variables entre sí.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numvarscorr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">])</span>
+<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">numvarscorr</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">corr_matrix</span><span class="p">,</span>
+    <span class="n">annot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>   
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+    <span class="n">linewidths</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span>
+    <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeficiente de Correlación&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Matriz de Correlación de Variables&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/734a1c1abc9d271223541f35bcd72cd37283acb982007ae7bbf7488f63541550.png" src="_images/734a1c1abc9d271223541f35bcd72cd37283acb982007ae7bbf7488f63541550.png" />
+</div>
+</div>
+<p>Al observar la matriz, notamos que es evidente que existen altas correlaciones entre las variables, tanto positivas como negativas.</p>
+<p>Veamos cuáles son para poder decidir con cuáles podemos quedarnos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+<span class="n">umbral</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">col1</span> <span class="ow">in</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">col2</span> <span class="ow">in</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col1</span> <span class="o">&lt;</span> <span class="n">col2</span><span class="p">:</span>  <span class="c1"># evitar duplicados</span>
+            <span class="n">corr_value</span> <span class="o">=</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">col1</span><span class="p">,</span> <span class="n">col2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">corr_value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">umbral</span><span class="p">:</span>
+                <span class="c1"># correlación con target</span>
+                <span class="n">corrobj1</span> <span class="o">=</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">col1</span><span class="p">,</span> <span class="n">target</span><span class="p">]</span> <span class="k">if</span> <span class="n">col1</span> <span class="o">!=</span> <span class="n">target</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">corrobj2</span> <span class="o">=</span> <span class="n">corr_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">col2</span><span class="p">,</span> <span class="n">target</span><span class="p">]</span> <span class="k">if</span> <span class="n">col2</span> <span class="o">!=</span> <span class="n">target</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="c1"># sugerencia: quedarse con la de mayor correlación con el target</span>
+                <span class="n">idea</span> <span class="o">=</span> <span class="n">col1</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">corrobj1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">corrobj2</span><span class="p">)</span> <span class="k">else</span> <span class="n">col2</span>
+                <span class="n">corr_target</span> <span class="o">=</span> <span class="n">corrobj1</span> <span class="k">if</span> <span class="n">idea</span> <span class="o">==</span> <span class="n">col1</span> <span class="k">else</span> <span class="n">corrobj2</span>
+                
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;Par de Variables&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col1</span><span class="si">}</span><span class="s2"> &amp; </span><span class="si">{</span><span class="n">col2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Correlación entre variables&quot;</span><span class="p">:</span> <span class="n">corr_value</span><span class="p">,</span>
+                <span class="p">})</span>
+
+<span class="n">duo_recomendado</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="n">tabla3</span> <span class="o">=</span> <span class="p">(</span><span class="n">duo_recomendado</span><span class="o">.</span><span class="n">style</span>
+               <span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Correlaciones Fuertes&quot;</span><span class="p">)</span>
+               <span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+                   <span class="s1">&#39;background-color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;11pt&#39;</span>
+               <span class="p">})</span>
+               <span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
+                   <span class="p">{</span><span class="s1">&#39;selector&#39;</span><span class="p">:</span> <span class="s1">&#39;th&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#00b4d8&#39;</span><span class="p">),</span>  
+                              <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">),</span>
+                              <span class="p">(</span><span class="s1">&#39;font-weight&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">)]}</span>
+               <span class="p">])</span>
+              <span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">tabla3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_13494 th {
+  background-color: #00b4d8;
+  color: black;
+  font-weight: bold;
+}
+#T_13494_row0_col0, #T_13494_row0_col1, #T_13494_row1_col0, #T_13494_row1_col1, #T_13494_row2_col0, #T_13494_row2_col1, #T_13494_row3_col0, #T_13494_row3_col1, #T_13494_row4_col0, #T_13494_row4_col1, #T_13494_row5_col0, #T_13494_row5_col1, #T_13494_row6_col0, #T_13494_row6_col1, #T_13494_row7_col0, #T_13494_row7_col1, #T_13494_row8_col0, #T_13494_row8_col1, #T_13494_row9_col0, #T_13494_row9_col1, #T_13494_row10_col0, #T_13494_row10_col1, #T_13494_row11_col0, #T_13494_row11_col1, #T_13494_row12_col0, #T_13494_row12_col1, #T_13494_row13_col0, #T_13494_row13_col1, #T_13494_row14_col0, #T_13494_row14_col1, #T_13494_row15_col0, #T_13494_row15_col1, #T_13494_row16_col0, #T_13494_row16_col1, #T_13494_row17_col0, #T_13494_row17_col1, #T_13494_row18_col0, #T_13494_row18_col1, #T_13494_row19_col0, #T_13494_row19_col1, #T_13494_row20_col0, #T_13494_row20_col1, #T_13494_row21_col0, #T_13494_row21_col1, #T_13494_row22_col0, #T_13494_row22_col1 {
+  background-color: white;
+  color: black;
+  font-size: 11pt;
+}
+</style>
+<table id="T_13494">
+  <caption>Correlaciones Fuertes</caption>
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_13494_level0_col0" class="col_heading level0 col0" >Par de Variables</th>
+      <th id="T_13494_level0_col1" class="col_heading level0 col1" >Correlación entre variables</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_13494_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_13494_row0_col0" class="data row0 col0" >funded_amnt & loan_amnt</td>
+      <td id="T_13494_row0_col1" class="data row0 col1" >0.999562</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_13494_row1_col0" class="data row1 col0" >funded_amnt & funded_amnt_inv</td>
+      <td id="T_13494_row1_col1" class="data row1 col1" >0.999095</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_13494_row2_col0" class="data row2 col0" >funded_amnt & installment</td>
+      <td id="T_13494_row2_col1" class="data row2 col1" >0.954053</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_13494_row3_col0" class="data row3 col0" >funded_amnt_inv & loan_amnt</td>
+      <td id="T_13494_row3_col1" class="data row3 col1" >0.998567</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_13494_row4_col0" class="data row4 col0" >funded_amnt_inv & installment</td>
+      <td id="T_13494_row4_col1" class="data row4 col1" >0.953064</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_13494_row5_col0" class="data row5 col0" >installment & loan_amnt</td>
+      <td id="T_13494_row5_col1" class="data row5 col1" >0.953401</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_13494_row6_col0" class="data row6 col0" >fico_range_high & fico_range_low</td>
+      <td id="T_13494_row6_col1" class="data row6 col1" >1.000000</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_13494_row7_col0" class="data row7 col0" >revol_bal & total_rev_hi_lim</td>
+      <td id="T_13494_row7_col1" class="data row7 col1" >0.801189</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_13494_row8_col0" class="data row8 col0" >tot_cur_bal & tot_hi_cred_lim</td>
+      <td id="T_13494_row8_col1" class="data row8 col1" >0.972951</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_13494_row9_col0" class="data row9 col0" >avg_cur_bal & tot_cur_bal</td>
+      <td id="T_13494_row9_col1" class="data row9 col1" >0.836222</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_13494_row10_col0" class="data row10 col0" >bc_open_to_buy & total_bc_limit</td>
+      <td id="T_13494_row10_col1" class="data row10 col1" >0.838084</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_13494_row11_col0" class="data row11 col0" >bc_util & revol_util</td>
+      <td id="T_13494_row11_col1" class="data row11 col1" >0.827278</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_13494_row12_col0" class="data row12 col0" >bc_util & percent_bc_gt_75</td>
+      <td id="T_13494_row12_col1" class="data row12 col1" >0.843014</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_13494_row13_col0" class="data row13 col0" >num_actv_bc_tl & num_actv_rev_tl</td>
+      <td id="T_13494_row13_col1" class="data row13 col1" >0.808038</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_13494_row14_col0" class="data row14 col0" >num_actv_bc_tl & num_bc_sats</td>
+      <td id="T_13494_row14_col1" class="data row14 col1" >0.826953</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_13494_row15_col0" class="data row15 col0" >num_actv_bc_tl & num_rev_tl_bal_gt_0</td>
+      <td id="T_13494_row15_col1" class="data row15 col1" >0.801008</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row16" class="row_heading level0 row16" >16</th>
+      <td id="T_13494_row16_col0" class="data row16 col0" >num_actv_rev_tl & num_rev_tl_bal_gt_0</td>
+      <td id="T_13494_row16_col1" class="data row16 col1" >0.982058</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row17" class="row_heading level0 row17" >17</th>
+      <td id="T_13494_row17_col0" class="data row17 col0" >num_bc_tl & num_rev_accts</td>
+      <td id="T_13494_row17_col1" class="data row17 col1" >0.838805</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row18" class="row_heading level0 row18" >18</th>
+      <td id="T_13494_row18_col0" class="data row18 col0" >num_op_rev_tl & open_acc</td>
+      <td id="T_13494_row18_col1" class="data row18 col1" >0.817890</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row19" class="row_heading level0 row19" >19</th>
+      <td id="T_13494_row19_col0" class="data row19 col0" >num_op_rev_tl & num_sats</td>
+      <td id="T_13494_row19_col1" class="data row19 col1" >0.827229</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row20" class="row_heading level0 row20" >20</th>
+      <td id="T_13494_row20_col0" class="data row20 col0" >num_sats & open_acc</td>
+      <td id="T_13494_row20_col1" class="data row20 col1" >0.983828</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row21" class="row_heading level0 row21" >21</th>
+      <td id="T_13494_row21_col0" class="data row21 col0" >total_bal_ex_mort & total_il_high_credit_limit</td>
+      <td id="T_13494_row21_col1" class="data row21 col1" >0.869402</td>
+    </tr>
+    <tr>
+      <th id="T_13494_level0_row22" class="row_heading level0 row22" >22</th>
+      <td id="T_13494_row22_col0" class="data row22 col0" >credit_history_years & mo_sin_old_rev_tl_op</td>
+      <td id="T_13494_row22_col1" class="data row22 col1" >0.898774</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;funded_amnt&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_amnt&#39;</span><span class="p">,</span> <span class="s1">&#39;funded_amnt_inv&#39;</span><span class="p">,</span> <span class="s1">&#39;installment&#39;</span><span class="p">],</span>  <span class="c1"># Grupo 1</span>
+    <span class="p">[</span><span class="s1">&#39;fico_range_high&#39;</span><span class="p">,</span> <span class="s1">&#39;fico_range_low&#39;</span><span class="p">],</span>                             <span class="c1"># Grupo 2</span>
+    <span class="p">[</span><span class="s1">&#39;revol_bal&#39;</span><span class="p">,</span> <span class="s1">&#39;total_rev_hi_lim&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_cur_bal&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_hi_cred_lim&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_cur_bal&#39;</span><span class="p">],</span>  <span class="c1"># Grupo 3</span>
+    <span class="p">[</span><span class="s1">&#39;bc_open_to_buy&#39;</span><span class="p">,</span> <span class="s1">&#39;total_bc_limit&#39;</span><span class="p">,</span> <span class="s1">&#39;bc_util&#39;</span><span class="p">,</span> <span class="s1">&#39;revol_util&#39;</span><span class="p">,</span> <span class="s1">&#39;percent_bc_gt_75&#39;</span><span class="p">],</span>   <span class="c1"># Grupo 4</span>
+    <span class="p">[</span><span class="s1">&#39;num_actv_bc_tl&#39;</span><span class="p">,</span> <span class="s1">&#39;num_actv_rev_tl&#39;</span><span class="p">,</span> <span class="s1">&#39;num_bc_sats&#39;</span><span class="p">,</span> <span class="s1">&#39;num_rev_tl_bal_gt_0&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;num_bc_tl&#39;</span><span class="p">,</span> <span class="s1">&#39;num_rev_accts&#39;</span><span class="p">,</span> <span class="s1">&#39;num_op_rev_tl&#39;</span><span class="p">,</span> <span class="s1">&#39;num_sats&#39;</span><span class="p">,</span> <span class="s1">&#39;open_acc&#39;</span><span class="p">]</span>             <span class="c1"># Grupo 5</span>
+<span class="p">]</span>
+
+<span class="c1"># Variables que decidimos conservar de cada grupo</span>
+<span class="n">keep_vars</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;funded_amnt&#39;</span><span class="p">,</span>      <span class="c1"># Grupo 1</span>
+    <span class="s1">&#39;fico_range_low&#39;</span><span class="p">,</span>   <span class="c1"># Grupo 2</span>
+    <span class="s1">&#39;tot_hi_cred_lim&#39;</span><span class="p">,</span>  <span class="c1"># Grupo 3</span>
+    <span class="s1">&#39;bc_util&#39;</span><span class="p">,</span>          <span class="c1"># Grupo 4</span>
+    <span class="s1">&#39;num_actv_rev_tl&#39;</span><span class="p">,</span>  <span class="c1"># Grupo 5</span>
+    <span class="s1">&#39;open_acc&#39;</span>          <span class="c1"># Grupo 5 (ya estaba incluida en la anterior)</span>
+<span class="p">]</span>
+
+<span class="n">to_drop</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keep_vars</span><span class="p">:</span>
+            <span class="n">to_drop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>funded_amnt</th>
+      <th>term</th>
+      <th>int_rate</th>
+      <th>grade</th>
+      <th>emp_length</th>
+      <th>home_ownership</th>
+      <th>annual_inc</th>
+      <th>verification_status</th>
+      <th>purpose</th>
+      <th>addr_state</th>
+      <th>dti</th>
+      <th>delinq_2yrs</th>
+      <th>fico_range_low</th>
+      <th>inq_last_6mths</th>
+      <th>open_acc</th>
+      <th>pub_rec</th>
+      <th>total_acc</th>
+      <th>initial_list_status</th>
+      <th>collections_12_mths_ex_med</th>
+      <th>application_type</th>
+      <th>acc_now_delinq</th>
+      <th>tot_coll_amt</th>
+      <th>acc_open_past_24mths</th>
+      <th>bc_util</th>
+      <th>chargeoff_within_12_mths</th>
+      <th>delinq_amnt</th>
+      <th>mo_sin_old_il_acct</th>
+      <th>mo_sin_old_rev_tl_op</th>
+      <th>mo_sin_rcnt_rev_tl_op</th>
+      <th>mo_sin_rcnt_tl</th>
+      <th>mort_acc</th>
+      <th>mths_since_recent_bc</th>
+      <th>mths_since_recent_inq</th>
+      <th>num_accts_ever_120_pd</th>
+      <th>num_actv_rev_tl</th>
+      <th>num_il_tl</th>
+      <th>num_tl_120dpd_2m</th>
+      <th>num_tl_30dpd</th>
+      <th>num_tl_90g_dpd_24m</th>
+      <th>num_tl_op_past_12m</th>
+      <th>pct_tl_nvr_dlq</th>
+      <th>pub_rec_bankruptcies</th>
+      <th>tax_liens</th>
+      <th>tot_hi_cred_lim</th>
+      <th>total_bal_ex_mort</th>
+      <th>total_il_high_credit_limit</th>
+      <th>disbursement_method</th>
+      <th>debt_settlement_flag</th>
+      <th>credit_history_years</th>
+      <th>default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3600.0</td>
+      <td>36</td>
+      <td>13.99</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>55000.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>PA</td>
+      <td>5.91</td>
+      <td>0.0</td>
+      <td>675.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>722.0</td>
+      <td>4.0</td>
+      <td>37.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>148.0</td>
+      <td>128.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>76.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>178050.0</td>
+      <td>7746.0</td>
+      <td>13734.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>12.342466</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24700.0</td>
+      <td>36</td>
+      <td>11.99</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>65000.0</td>
+      <td>Not Verified</td>
+      <td>small_business</td>
+      <td>SD</td>
+      <td>16.06</td>
+      <td>1.0</td>
+      <td>715.0</td>
+      <td>4.0</td>
+      <td>22.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>27.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>113.0</td>
+      <td>192.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>97.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>314017.0</td>
+      <td>39475.0</td>
+      <td>24667.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>16.010959</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20000.0</td>
+      <td>60</td>
+      <td>10.78</td>
+      <td>B</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>63000.0</td>
+      <td>Not Verified</td>
+      <td>home_improvement</td>
+      <td>IL</td>
+      <td>10.78</td>
+      <td>0.0</td>
+      <td>695.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Joint App</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>55.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>125.0</td>
+      <td>184.0</td>
+      <td>14.0</td>
+      <td>14.0</td>
+      <td>5.0</td>
+      <td>101.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>218418.0</td>
+      <td>18696.0</td>
+      <td>14877.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>15.342466</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10400.0</td>
+      <td>60</td>
+      <td>22.45</td>
+      <td>F</td>
+      <td>3.0</td>
+      <td>MORTGAGE</td>
+      <td>104433.0</td>
+      <td>Source Verified</td>
+      <td>major_purchase</td>
+      <td>PA</td>
+      <td>25.37</td>
+      <td>1.0</td>
+      <td>695.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>35.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>77.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>128.0</td>
+      <td>210.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>96.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>439570.0</td>
+      <td>95768.0</td>
+      <td>88097.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>17.512329</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11950.0</td>
+      <td>36</td>
+      <td>13.44</td>
+      <td>C</td>
+      <td>4.0</td>
+      <td>RENT</td>
+      <td>34000.0</td>
+      <td>Source Verified</td>
+      <td>debt_consolidation</td>
+      <td>GA</td>
+      <td>10.20</td>
+      <td>0.0</td>
+      <td>690.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>91.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>338.0</td>
+      <td>54.0</td>
+      <td>32.0</td>
+      <td>32.0</td>
+      <td>0.0</td>
+      <td>36.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>16900.0</td>
+      <td>12798.0</td>
+      <td>4000.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>28.186301</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>A partir de la matriz de correlación, se identificó claramente la existencia de correlaciones muy fuertes entre variables. Al analizar, se borraron las variables que se consideraron menos informativas o útiles en comparación con las que continúan en nuestro dataset.</p>
+<p>Finalmente, se aplicará un <strong>VIF</strong>, esto con el fin de dejar la base de datos efectivamente preprocesada y limpiada para los modelos a implementar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">])</span>
+
+<span class="n">X_numeric</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+
+<span class="n">vif_threshold</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">vif_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">vif_data</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_numeric</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">vif_data</span><span class="p">[</span><span class="s2">&quot;VIF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X_numeric</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_numeric</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+    <span class="p">]</span>
+
+    <span class="n">max_vif</span> <span class="o">=</span> <span class="n">vif_data</span><span class="p">[</span><span class="s1">&#39;VIF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">max_vif</span> <span class="o">&gt;</span> <span class="n">vif_threshold</span><span class="p">:</span>
+        <span class="n">drop_feature</span> <span class="o">=</span> <span class="n">vif_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">vif_data</span><span class="p">[</span><span class="s1">&#39;VIF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="s1">&#39;feature&#39;</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Eliminando &#39;</span><span class="si">{</span><span class="n">drop_feature</span><span class="si">}</span><span class="s2">&#39; con un VIF de </span><span class="si">{</span><span class="n">max_vif</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    
+        <span class="n">X_numeric</span> <span class="o">=</span> <span class="n">X_numeric</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">drop_feature</span><span class="p">])</span>
+
+
+        <span class="n">df_imp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">drop_feature</span><span class="p">])</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Todos los valores VIF están por debajo del umbral.&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eliminando &#39;fico_range_low&#39; con un VIF de 248.51
+Eliminando &#39;pct_tl_nvr_dlq&#39; con un VIF de 35.57
+Eliminando &#39;credit_history_years&#39; con un VIF de 34.47
+Eliminando &#39;total_acc&#39; con un VIF de 25.65
+Eliminando &#39;term&#39; con un VIF de 20.19
+Eliminando &#39;open_acc&#39; con un VIF de 15.40
+Eliminando &#39;total_bal_ex_mort&#39; con un VIF de 10.84
+Eliminando &#39;int_rate&#39; con un VIF de 10.08
+Eliminando &#39;pub_rec&#39; con un VIF de 9.41
+Eliminando &#39;acc_open_past_24mths&#39; con un VIF de 8.51
+Eliminando &#39;mo_sin_old_il_acct&#39; con un VIF de 8.09
+Eliminando &#39;mo_sin_old_rev_tl_op&#39; con un VIF de 5.43
+Eliminando &#39;bc_util&#39; con un VIF de 5.41
+
+Todos los valores VIF están por debajo del umbral.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>funded_amnt</th>
+      <th>term</th>
+      <th>int_rate</th>
+      <th>grade</th>
+      <th>emp_length</th>
+      <th>home_ownership</th>
+      <th>annual_inc</th>
+      <th>verification_status</th>
+      <th>purpose</th>
+      <th>addr_state</th>
+      <th>dti</th>
+      <th>delinq_2yrs</th>
+      <th>fico_range_low</th>
+      <th>inq_last_6mths</th>
+      <th>open_acc</th>
+      <th>pub_rec</th>
+      <th>total_acc</th>
+      <th>initial_list_status</th>
+      <th>collections_12_mths_ex_med</th>
+      <th>application_type</th>
+      <th>acc_now_delinq</th>
+      <th>tot_coll_amt</th>
+      <th>acc_open_past_24mths</th>
+      <th>bc_util</th>
+      <th>chargeoff_within_12_mths</th>
+      <th>delinq_amnt</th>
+      <th>mo_sin_old_il_acct</th>
+      <th>mo_sin_old_rev_tl_op</th>
+      <th>mo_sin_rcnt_rev_tl_op</th>
+      <th>mo_sin_rcnt_tl</th>
+      <th>mort_acc</th>
+      <th>mths_since_recent_bc</th>
+      <th>mths_since_recent_inq</th>
+      <th>num_accts_ever_120_pd</th>
+      <th>num_actv_rev_tl</th>
+      <th>num_il_tl</th>
+      <th>num_tl_120dpd_2m</th>
+      <th>num_tl_30dpd</th>
+      <th>num_tl_90g_dpd_24m</th>
+      <th>num_tl_op_past_12m</th>
+      <th>pct_tl_nvr_dlq</th>
+      <th>pub_rec_bankruptcies</th>
+      <th>tax_liens</th>
+      <th>tot_hi_cred_lim</th>
+      <th>total_bal_ex_mort</th>
+      <th>total_il_high_credit_limit</th>
+      <th>disbursement_method</th>
+      <th>debt_settlement_flag</th>
+      <th>credit_history_years</th>
+      <th>default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3600.0</td>
+      <td>36</td>
+      <td>13.99</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>55000.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>PA</td>
+      <td>5.91</td>
+      <td>0.0</td>
+      <td>675.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>722.0</td>
+      <td>4.0</td>
+      <td>37.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>148.0</td>
+      <td>128.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>76.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>178050.0</td>
+      <td>7746.0</td>
+      <td>13734.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>12.342466</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24700.0</td>
+      <td>36</td>
+      <td>11.99</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>65000.0</td>
+      <td>Not Verified</td>
+      <td>small_business</td>
+      <td>SD</td>
+      <td>16.06</td>
+      <td>1.0</td>
+      <td>715.0</td>
+      <td>4.0</td>
+      <td>22.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>27.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>113.0</td>
+      <td>192.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>97.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>314017.0</td>
+      <td>39475.0</td>
+      <td>24667.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>16.010959</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20000.0</td>
+      <td>60</td>
+      <td>10.78</td>
+      <td>B</td>
+      <td>10.0</td>
+      <td>MORTGAGE</td>
+      <td>63000.0</td>
+      <td>Not Verified</td>
+      <td>home_improvement</td>
+      <td>IL</td>
+      <td>10.78</td>
+      <td>0.0</td>
+      <td>695.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Joint App</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>55.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>125.0</td>
+      <td>184.0</td>
+      <td>14.0</td>
+      <td>14.0</td>
+      <td>5.0</td>
+      <td>101.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>218418.0</td>
+      <td>18696.0</td>
+      <td>14877.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>15.342466</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10400.0</td>
+      <td>60</td>
+      <td>22.45</td>
+      <td>F</td>
+      <td>3.0</td>
+      <td>MORTGAGE</td>
+      <td>104433.0</td>
+      <td>Source Verified</td>
+      <td>major_purchase</td>
+      <td>PA</td>
+      <td>25.37</td>
+      <td>1.0</td>
+      <td>695.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>35.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>77.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>128.0</td>
+      <td>210.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>96.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>439570.0</td>
+      <td>95768.0</td>
+      <td>88097.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>17.512329</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11950.0</td>
+      <td>36</td>
+      <td>13.44</td>
+      <td>C</td>
+      <td>4.0</td>
+      <td>RENT</td>
+      <td>34000.0</td>
+      <td>Source Verified</td>
+      <td>debt_consolidation</td>
+      <td>GA</td>
+      <td>10.20</td>
+      <td>0.0</td>
+      <td>690.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>w</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>91.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>338.0</td>
+      <td>54.0</td>
+      <td>32.0</td>
+      <td>32.0</td>
+      <td>0.0</td>
+      <td>36.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>16900.0</td>
+      <td>12798.0</td>
+      <td>4000.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>28.186301</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2260688</th>
+      <td>18000.0</td>
+      <td>60</td>
+      <td>9.49</td>
+      <td>B</td>
+      <td>5.0</td>
+      <td>OWN</td>
+      <td>130000.0</td>
+      <td>Not Verified</td>
+      <td>home_improvement</td>
+      <td>TX</td>
+      <td>20.59</td>
+      <td>0.0</td>
+      <td>735.0</td>
+      <td>1.0</td>
+      <td>17.0</td>
+      <td>0.0</td>
+      <td>39.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>68.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>113.0</td>
+      <td>146.0</td>
+      <td>17.0</td>
+      <td>15.0</td>
+      <td>3.0</td>
+      <td>17.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>9.0</td>
+      <td>21.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>275356.0</td>
+      <td>54349.0</td>
+      <td>77756.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>12.260274</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2260690</th>
+      <td>29400.0</td>
+      <td>60</td>
+      <td>13.99</td>
+      <td>C</td>
+      <td>9.0</td>
+      <td>MORTGAGE</td>
+      <td>180792.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>CA</td>
+      <td>22.03</td>
+      <td>0.0</td>
+      <td>705.0</td>
+      <td>1.0</td>
+      <td>16.0</td>
+      <td>0.0</td>
+      <td>32.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>69.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>145.0</td>
+      <td>174.0</td>
+      <td>31.0</td>
+      <td>8.0</td>
+      <td>3.0</td>
+      <td>70.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>17.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>719056.0</td>
+      <td>148305.0</td>
+      <td>95702.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>14.597260</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2260691</th>
+      <td>32000.0</td>
+      <td>60</td>
+      <td>14.49</td>
+      <td>C</td>
+      <td>3.0</td>
+      <td>MORTGAGE</td>
+      <td>157000.0</td>
+      <td>Source Verified</td>
+      <td>home_improvement</td>
+      <td>AZ</td>
+      <td>10.34</td>
+      <td>0.0</td>
+      <td>735.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>10.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>53.0</td>
+      <td>63.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>8.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>524379.0</td>
+      <td>122872.0</td>
+      <td>23879.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>5.339726</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2260692</th>
+      <td>16000.0</td>
+      <td>60</td>
+      <td>12.79</td>
+      <td>C</td>
+      <td>10.0</td>
+      <td>RENT</td>
+      <td>150000.0</td>
+      <td>Not Verified</td>
+      <td>medical</td>
+      <td>NC</td>
+      <td>12.25</td>
+      <td>0.0</td>
+      <td>665.0</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>4.0</td>
+      <td>28.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.0</td>
+      <td>73.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>147.0</td>
+      <td>229.0</td>
+      <td>17.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>17.0</td>
+      <td>12.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>92.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>87473.0</td>
+      <td>65797.0</td>
+      <td>73473.0</td>
+      <td>Cash</td>
+      <td>N</td>
+      <td>19.180822</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2260697</th>
+      <td>24000.0</td>
+      <td>60</td>
+      <td>14.49</td>
+      <td>C</td>
+      <td>6.0</td>
+      <td>RENT</td>
+      <td>110000.0</td>
+      <td>Not Verified</td>
+      <td>debt_consolidation</td>
+      <td>FL</td>
+      <td>18.30</td>
+      <td>0.0</td>
+      <td>660.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>31.0</td>
+      <td>f</td>
+      <td>0.0</td>
+      <td>Individual</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.0</td>
+      <td>77.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>132.0</td>
+      <td>206.0</td>
+      <td>9.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>96.2</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>84664.0</td>
+      <td>62426.0</td>
+      <td>58764.0</td>
+      <td>Cash</td>
+      <td>Y</td>
+      <td>17.265753</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>1345310 rows × 50 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols_a_eliminar</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;fico_range_low&#39;</span><span class="p">,</span> <span class="s1">&#39;pct_tl_nvr_dlq&#39;</span><span class="p">,</span> <span class="s1">&#39;credit_history_years&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;total_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;open_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;total_bal_ex_mort&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;int_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;pub_rec&#39;</span><span class="p">,</span> <span class="s1">&#39;acc_open_past_24mths&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mo_sin_old_il_acct&#39;</span><span class="p">,</span> <span class="s1">&#39;mo_sin_old_rev_tl_op&#39;</span><span class="p">,</span> <span class="s1">&#39;bc_util&#39;</span>
+<span class="p">]</span>
+
+<span class="n">datalimpio</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols_a_eliminar</span><span class="p">)</span>
+
+<span class="n">datalimpio</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;datalimpia.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
@@ -2972,8 +5490,17 @@ dtype: float64
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">ENUNCIADO</p>
+        <p class="prev-next-title">7.12.1. Objetivo</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="modeloscikit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Scikit</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -3012,9 +5539,18 @@ dtype: float64
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion"><strong>Imputación</strong></a></li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#numericas"><strong>Numéricas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#numericas"><strong>Numéricas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Imputación</strong></a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables"><strong>Análisis de las variables</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Numéricas</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Categóricas</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multicolinealidad"><strong>Multicolinealidad</strong></a></li>
 </ul>
 </li>
 </ul>
