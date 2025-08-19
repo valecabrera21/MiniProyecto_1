@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>7.12.1. Objetivo &#8212; Mini Proyecto 1</title>
+    <title>Enunciado &#8212; Mini Proyecto 1</title>
   
   
   
@@ -180,9 +180,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7.12.1. Objetivo</a></li>
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Enunciado</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eda.html"><strong>Análisis Exploratorio de los Datos</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="modeloscikit.html"><strong>Scikit</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="modelopysparkk.html">Modelo Pyspark</a></li>
@@ -372,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>7.12.1. Objetivo</h1>
+    <h1>Enunciado</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -382,11 +380,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">7.12.1. Objetivo</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">7.12.2. Dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#target">7.12.3. Target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">7.12.1. Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">7.12.2. Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#target">7.12.3. Target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploracion-de-datos-eda">7.12.4. Exploración de datos (EDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">7.12.5. scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyspark">7.12.6. PySpark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-con-scikit-learn">7.12.7. Modelado con scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-con-pyspark">7.12.8. Modelado con PySpark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretabilidad-con-lime">7.12.9. Interpretabilidad con LIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-resultados">7.12.10. Comparación de Resultados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entregable">7.12.11. Entregable</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -397,21 +402,23 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="objetivo">
-<h1>7.12.1. Objetivo<a class="headerlink" href="#objetivo" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="enunciado">
+<h1>Enunciado<a class="headerlink" href="#enunciado" title="Link to this heading">#</a></h1>
+<section id="objetivo">
+<h2>7.12.1. Objetivo<a class="headerlink" href="#objetivo" title="Link to this heading">#</a></h2>
 <p>Construir un modelo de clasificación supervisada usando <strong>MLP (Multilayer Perceptron / Red Neuronal Multicapa)</strong> para predecir si un préstamo emitido por la plataforma <strong>Lending Club</strong> resultará en <strong>default (1)</strong> o será pagado completamente <strong>(0)</strong>.<br />
 Se comparará el desempeño de los modelos construidos con <strong>scikit-learn</strong> y <strong>PySpark</strong>. Además, se aplicará <strong>LIME</strong> para interpretar predicciones.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="dataset">
-<h1>7.12.2. Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h1>
+<section id="dataset">
+<h2>7.12.2. Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Nombre:</strong> Lending Club Loan Data (2007–2020)</p></li>
 <li><p><strong>Tamaño:</strong> más de 1,3 millones de registros</p></li>
 <li><p><strong>Características:</strong> variables socioeconómicas, financieras, de crédito, empleo y propósito del préstamo</p></li>
 </ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="target">
-<h1>7.12.3. Target<a class="headerlink" href="#target" title="Link to this heading">#</a></h1>
+<section id="target">
+<h2>7.12.3. Target<a class="headerlink" href="#target" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Variable binaria:</strong> <code class="docutils literal notranslate"><span class="pre">loan_status</span></code></p>
 <ul>
@@ -422,89 +429,127 @@ Se comparará el desempeño de los modelos construidos con <strong>scikit-learn<
 </ul>
 <p>Generar la variable <code class="docutils literal notranslate"><span class="pre">default</span></code> basada en la columna <code class="docutils literal notranslate"><span class="pre">loan_status</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;loan_status&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;Charged Off&quot;</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># 7.12.4. Exploración de datos (EDA)</span>
-<span class="o">-</span> <span class="n">Cargar</span> <span class="n">el</span> <span class="n">dataset</span> <span class="n">CSV</span>
-<span class="o">-</span> <span class="n">Analizar</span> <span class="n">la</span> <span class="n">distribución</span> <span class="n">de</span> <span class="n">la</span> <span class="n">variable</span> <span class="err">`</span><span class="n">default</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Verificar</span> <span class="n">valores</span> <span class="n">faltantes</span> <span class="n">y</span> <span class="n">tipos</span> <span class="n">de</span> <span class="n">datos</span>
-
-<span class="o">**</span><span class="n">Visualizaciones</span> <span class="n">requeridas</span><span class="p">:</span><span class="o">**</span>
-<span class="o">-</span> <span class="n">Histogramas</span> <span class="n">de</span> <span class="n">variables</span> <span class="n">numéricas</span>
-<span class="o">-</span> <span class="n">Boxplots</span> <span class="n">por</span> <span class="n">clase</span> <span class="p">(</span><span class="err">`</span><span class="n">default</span><span class="err">`</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">Matriz</span> <span class="n">de</span> <span class="n">correlación</span> <span class="n">o</span> <span class="n">mapa</span> <span class="n">de</span> <span class="n">calor</span>
-
-<span class="c1"># 7.12.5. scikit-learn</span>
-<span class="o">-</span> <span class="n">Seleccionar</span> <span class="n">variables</span> <span class="n">relevantes</span><span class="p">:</span> <span class="err">`</span><span class="n">loan_amnt</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">int_rate</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">fico_range_high</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">emp_length</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">annual_inc</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">purpose</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">home_ownership</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">dti</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="n">addr_state</span><span class="err">`</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span>
-<span class="o">-</span> <span class="n">Codificación</span> <span class="n">de</span> <span class="n">variables</span> <span class="n">categóricas</span> <span class="p">(</span><span class="err">`</span><span class="n">OneHotEncoder</span><span class="err">`</span> <span class="n">o</span> <span class="err">`</span><span class="n">LabelEncoder</span><span class="err">`</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">Escalado</span> <span class="n">de</span> <span class="n">variables</span> <span class="n">numéricas</span> <span class="n">con</span> <span class="err">`</span><span class="n">StandardScaler</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">División</span> <span class="n">train</span><span class="o">/</span><span class="n">test</span> <span class="p">(</span><span class="err">`</span><span class="mi">80</span><span class="o">/</span><span class="mi">20</span><span class="err">`</span><span class="p">),</span> <span class="n">estratificada</span> <span class="n">por</span> <span class="n">clase</span>
-
-<span class="c1"># 7.12.6. PySpark</span>
-<span class="o">-</span> <span class="n">Leer</span> <span class="n">el</span> <span class="n">CSV</span> <span class="n">utilizando</span> <span class="err">`</span><span class="n">SparkSession</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Uso</span> <span class="n">de</span> <span class="err">`</span><span class="n">StringIndexer</span><span class="err">`</span> <span class="n">y</span> <span class="err">`</span><span class="n">OneHotEncoder</span><span class="err">`</span> <span class="n">para</span> <span class="n">variables</span> <span class="n">categóricas</span>
-<span class="o">-</span> <span class="n">Combinar</span> <span class="n">columnas</span> <span class="n">de</span> <span class="n">entrada</span> <span class="n">en</span> <span class="n">una</span> <span class="n">sola</span> <span class="n">columna</span> <span class="err">`</span><span class="n">features</span><span class="err">`</span> <span class="n">usando</span> <span class="err">`</span><span class="n">VectorAssembler</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Escalar</span> <span class="n">las</span> <span class="n">variables</span> <span class="n">con</span> <span class="err">`</span><span class="n">StandardScaler</span><span class="err">`</span> <span class="p">(</span><span class="n">opcional</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">Dividir</span> <span class="n">en</span> <span class="n">train</span> <span class="n">y</span> <span class="n">test</span> <span class="n">usando</span> <span class="err">`</span><span class="n">randomSplit</span><span class="err">`</span><span class="p">,</span> <span class="n">estratificada</span> <span class="n">si</span> <span class="n">es</span> <span class="n">posible</span>
-
-<span class="c1"># 7.12.7. Modelado con scikit-learn</span>
-<span class="o">-</span> <span class="n">Usar</span> <span class="err">`</span><span class="n">MLPClassifier</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Realizar</span> <span class="n">búsqueda</span> <span class="n">de</span> <span class="n">hiperparámetros</span> <span class="p">(</span><span class="err">`</span><span class="n">GridSearchCV</span><span class="err">`</span><span class="p">)</span> <span class="n">para</span><span class="p">:</span>
-  <span class="o">-</span> <span class="err">`</span><span class="n">hidden_layer_sizes</span><span class="err">`</span> <span class="p">(</span><span class="n">por</span> <span class="n">ejemplo</span><span class="p">:</span> <span class="err">`</span><span class="p">[(</span><span class="mi">10</span><span class="p">,),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,)]</span><span class="err">`</span><span class="p">)</span>
-  <span class="o">-</span> <span class="err">`</span><span class="n">alpha</span><span class="err">`</span> <span class="p">(</span><span class="n">por</span> <span class="n">ejemplo</span><span class="p">:</span> <span class="err">`</span><span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span><span class="err">`</span><span class="p">)</span>
-  <span class="o">-</span> <span class="err">`</span><span class="n">max_iter</span><span class="err">`</span> <span class="p">(</span><span class="n">por</span> <span class="n">ejemplo</span><span class="p">:</span> <span class="err">`</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span><span class="err">`</span><span class="p">)</span>
-
-<span class="o">**</span><span class="n">Métricas</span> <span class="n">a</span> <span class="n">evaluar</span><span class="p">:</span><span class="o">**</span>
-<span class="o">-</span> <span class="n">Accuracy</span>
-<span class="o">-</span> <span class="n">Precision</span>
-<span class="o">-</span> <span class="n">Recall</span>
-<span class="o">-</span> <span class="n">F1</span><span class="o">-</span><span class="n">score</span>
-<span class="o">-</span> <span class="n">ROC</span> <span class="n">AUC</span>
-<span class="o">-</span> <span class="n">Matriz</span> <span class="n">de</span> <span class="n">confusión</span>
-
-<span class="o">**</span><span class="n">Medir</span><span class="p">:</span><span class="o">**</span> <span class="n">tiempo</span> <span class="n">de</span> <span class="n">entrenamiento</span> <span class="n">y</span> <span class="n">predicción</span>
-
-<span class="c1"># 7.12.8. Modelado con PySpark</span>
-<span class="o">-</span> <span class="n">Usar</span> <span class="err">`</span><span class="n">pyspark</span><span class="o">.</span><span class="n">ml</span><span class="o">.</span><span class="n">classification</span><span class="o">.</span><span class="n">MultilayerPerceptronClassifier</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Probar</span> <span class="n">combinaciones</span> <span class="n">de</span> <span class="n">hiperparámetros</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">Estructura</span> <span class="n">de</span> <span class="n">capas</span> <span class="p">(</span><span class="err">`</span><span class="n">layers</span><span class="err">`</span><span class="p">):</span> <span class="err">`</span><span class="p">[</span><span class="n">num_features</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="p">[</span><span class="n">num_features</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="p">[</span><span class="n">num_features</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="err">`</span>
-  <span class="o">-</span> <span class="err">`</span><span class="n">stepSize</span><span class="err">`</span><span class="p">:</span> <span class="err">`</span><span class="mf">0.1</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="mf">0.01</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="mf">0.001</span><span class="err">`</span>
-  <span class="o">-</span> <span class="err">`</span><span class="n">maxIter</span><span class="err">`</span><span class="p">:</span> <span class="err">`</span><span class="mi">100</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="mi">200</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Evaluar</span> <span class="n">con</span> <span class="err">`</span><span class="n">BinaryClassificationEvaluator</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Calcular</span> <span class="n">precisión</span><span class="p">,</span> <span class="n">F1</span><span class="o">-</span><span class="n">score</span> <span class="n">y</span> <span class="n">matriz</span> <span class="n">de</span> <span class="n">confusión</span>
-<span class="o">-</span> <span class="n">Medir</span> <span class="n">el</span> <span class="n">tiempo</span> <span class="n">total</span> <span class="n">de</span> <span class="n">entrenamiento</span> <span class="n">y</span> <span class="n">predicción</span>
-
-<span class="c1"># 7.12.9. Interpretabilidad con LIME</span>
-<span class="o">-</span> <span class="n">Instalar</span> <span class="n">LIME</span><span class="p">:</span> <span class="err">`</span><span class="n">pip</span> <span class="n">install</span> <span class="n">lime</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">Seleccionar</span> <span class="n">una</span> <span class="n">o</span> <span class="n">dos</span> <span class="n">instancias</span> <span class="n">clasificadas</span> <span class="n">erróneamente</span>
-<span class="o">-</span> <span class="n">Aplicar</span> <span class="err">`</span><span class="n">lime</span><span class="o">.</span><span class="n">lime_tabular</span><span class="o">.</span><span class="n">LimeTabularExplainer</span><span class="err">`</span> <span class="n">para</span> <span class="n">analizar</span> <span class="n">la</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">predicción</span><span class="p">(</span><span class="n">es</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">Visualizar</span> <span class="n">variables</span> <span class="n">más</span> <span class="n">influyentes</span> <span class="n">en</span> <span class="n">la</span> <span class="n">decisión</span> <span class="k">del</span> <span class="n">modelo</span>
-<span class="o">-</span> <span class="n">Incluir</span> <span class="n">gráficos</span> <span class="n">de</span> <span class="n">explicación</span> <span class="n">local</span>
-
-<span class="c1"># 7.12.10. Comparación de Resultados</span>
-<span class="o">-</span> <span class="o">**</span><span class="n">Tabla</span> <span class="n">comparativa</span> <span class="n">con</span><span class="p">:</span><span class="o">**</span>
-  <span class="o">-</span> <span class="n">Métricas</span> <span class="n">para</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">vs</span> <span class="n">PySpark</span>
-  <span class="o">-</span> <span class="n">Tiempo</span> <span class="n">de</span> <span class="n">cómputo</span> <span class="p">(</span><span class="n">entrenamiento</span> <span class="n">y</span> <span class="n">predicción</span><span class="p">)</span>
-
-<span class="o">-</span> <span class="o">**</span><span class="n">Gráficos</span><span class="p">:</span><span class="o">**</span>
-  <span class="o">-</span> <span class="n">Curvas</span> <span class="n">ROC</span>
-  <span class="o">-</span> <span class="n">Gráficos</span> <span class="n">comparativos</span> <span class="n">de</span> <span class="n">tiempo</span>
-
-<span class="c1"># 7.12.11. Entregable</span>
-<span class="n">Un</span> <span class="o">**</span><span class="n">Jupyter</span> <span class="n">Book</span><span class="o">**</span> <span class="n">bien</span> <span class="n">documentado</span> <span class="n">que</span> <span class="n">incluya</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">Análisis</span> <span class="n">exploratorio</span>
-<span class="o">-</span> <span class="n">Preprocesamiento</span> <span class="n">en</span> <span class="n">ambos</span> <span class="n">entornos</span>
-<span class="o">-</span> <span class="n">Modelado</span> <span class="n">y</span> <span class="n">tuning</span> <span class="n">de</span> <span class="n">hiperparámetros</span>
-<span class="o">-</span> <span class="n">Evaluación</span> <span class="n">de</span> <span class="n">métricas</span>
-<span class="o">-</span> <span class="n">Interpretabilidad</span> <span class="n">con</span> <span class="n">LIME</span> <span class="p">(</span><span class="n">con</span> <span class="n">visualizaciones</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">Reflexión</span> <span class="n">crítica</span> <span class="n">sobre</span><span class="p">:</span>
-  <span class="o">-</span> <span class="err">¿</span><span class="n">Qué</span> <span class="n">entorno</span> <span class="n">fue</span> <span class="n">más</span> <span class="n">rápido</span><span class="err">?</span>
-  <span class="o">-</span> <span class="err">¿</span><span class="n">Cuál</span> <span class="n">más</span> <span class="n">preciso</span><span class="err">?</span>
-  <span class="o">-</span> <span class="err">¿</span><span class="n">Cuándo</span> <span class="n">es</span> <span class="n">útil</span> <span class="n">PySpark</span><span class="err">?</span>
-  <span class="o">-</span> <span class="err">¿</span><span class="n">Qué</span> <span class="n">aporta</span> <span class="n">LIME</span><span class="err">?</span>
-
-
 </pre></div>
 </div>
+</section>
+<section id="exploracion-de-datos-eda">
+<h2>7.12.4. Exploración de datos (EDA)<a class="headerlink" href="#exploracion-de-datos-eda" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Cargar el dataset CSV</p></li>
+<li><p>Analizar la distribución de la variable <code class="docutils literal notranslate"><span class="pre">default</span></code></p></li>
+<li><p>Verificar valores faltantes y tipos de datos</p></li>
+</ul>
+<p><strong>Visualizaciones requeridas:</strong></p>
+<ul class="simple">
+<li><p>Histogramas de variables numéricas</p></li>
+<li><p>Boxplots por clase (<code class="docutils literal notranslate"><span class="pre">default</span></code>)</p></li>
+<li><p>Matriz de correlación o mapa de calor</p></li>
+</ul>
+</section>
+<section id="scikit-learn">
+<h2>7.12.5. scikit-learn<a class="headerlink" href="#scikit-learn" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Seleccionar variables relevantes: <code class="docutils literal notranslate"><span class="pre">loan_amnt</span></code>, <code class="docutils literal notranslate"><span class="pre">int_rate</span></code>, <code class="docutils literal notranslate"><span class="pre">fico_range_high</span></code>, <code class="docutils literal notranslate"><span class="pre">emp_length</span></code>, <code class="docutils literal notranslate"><span class="pre">annual_inc</span></code>, <code class="docutils literal notranslate"><span class="pre">purpose</span></code>, <code class="docutils literal notranslate"><span class="pre">home_ownership</span></code>, <code class="docutils literal notranslate"><span class="pre">dti</span></code>, <code class="docutils literal notranslate"><span class="pre">addr_state</span></code>, etc.</p></li>
+<li><p>Codificación de variables categóricas (<code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code> o <code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code>)</p></li>
+<li><p>Escalado de variables numéricas con <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code></p></li>
+<li><p>División train/test (<code class="docutils literal notranslate"><span class="pre">80/20</span></code>), estratificada por clase</p></li>
+</ul>
+</section>
+<section id="pyspark">
+<h2>7.12.6. PySpark<a class="headerlink" href="#pyspark" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Leer el CSV utilizando <code class="docutils literal notranslate"><span class="pre">SparkSession</span></code></p></li>
+<li><p>Uso de <code class="docutils literal notranslate"><span class="pre">StringIndexer</span></code> y <code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code> para variables categóricas</p></li>
+<li><p>Combinar columnas de entrada en una sola columna <code class="docutils literal notranslate"><span class="pre">features</span></code> usando <code class="docutils literal notranslate"><span class="pre">VectorAssembler</span></code></p></li>
+<li><p>Escalar las variables con <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> (opcional)</p></li>
+<li><p>Dividir en train y test usando <code class="docutils literal notranslate"><span class="pre">randomSplit</span></code>, estratificada si es posible</p></li>
+</ul>
+</section>
+<section id="modelado-con-scikit-learn">
+<h2>7.12.7. Modelado con scikit-learn<a class="headerlink" href="#modelado-con-scikit-learn" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Usar <code class="docutils literal notranslate"><span class="pre">MLPClassifier</span></code></p></li>
+<li><p>Realizar búsqueda de hiperparámetros (<code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>) para:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">hidden_layer_sizes</span></code> (por ejemplo: <code class="docutils literal notranslate"><span class="pre">[(10,),</span> <span class="pre">(50,),</span> <span class="pre">(100,)]</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> (por ejemplo: <code class="docutils literal notranslate"><span class="pre">[0.0001,</span> <span class="pre">0.001,</span> <span class="pre">0.01]</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iter</span></code> (por ejemplo: <code class="docutils literal notranslate"><span class="pre">[100,</span> <span class="pre">200]</span></code>)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Métricas a evaluar:</strong></p>
+<ul class="simple">
+<li><p>Accuracy</p></li>
+<li><p>Precision</p></li>
+<li><p>Recall</p></li>
+<li><p>F1-score</p></li>
+<li><p>ROC AUC</p></li>
+<li><p>Matriz de confusión</p></li>
+</ul>
+<p><strong>Medir:</strong> tiempo de entrenamiento y predicción</p>
+</section>
+<section id="modelado-con-pyspark">
+<h2>7.12.8. Modelado con PySpark<a class="headerlink" href="#modelado-con-pyspark" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Usar <code class="docutils literal notranslate"><span class="pre">pyspark.ml.classification.MultilayerPerceptronClassifier</span></code></p></li>
+<li><p>Probar combinaciones de hiperparámetros:</p>
+<ul>
+<li><p>Estructura de capas (<code class="docutils literal notranslate"><span class="pre">layers</span></code>): <code class="docutils literal notranslate"><span class="pre">[num_features,</span> <span class="pre">10,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[num_features,</span> <span class="pre">50,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[num_features,</span> <span class="pre">100,</span> <span class="pre">2]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stepSize</span></code>: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">0.01</span></code>, <code class="docutils literal notranslate"><span class="pre">0.001</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maxIter</span></code>: <code class="docutils literal notranslate"><span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">200</span></code></p></li>
+</ul>
+</li>
+<li><p>Evaluar con <code class="docutils literal notranslate"><span class="pre">BinaryClassificationEvaluator</span></code></p></li>
+<li><p>Calcular precisión, F1-score y matriz de confusión</p></li>
+<li><p>Medir el tiempo total de entrenamiento y predicción</p></li>
+</ul>
+</section>
+<section id="interpretabilidad-con-lime">
+<h2>7.12.9. Interpretabilidad con LIME<a class="headerlink" href="#interpretabilidad-con-lime" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Instalar LIME: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">lime</span></code></p></li>
+<li><p>Seleccionar una o dos instancias clasificadas erróneamente</p></li>
+<li><p>Aplicar <code class="docutils literal notranslate"><span class="pre">lime.lime_tabular.LimeTabularExplainer</span></code> para analizar la(s) predicción(es)</p></li>
+<li><p>Visualizar variables más influyentes en la decisión del modelo</p></li>
+<li><p>Incluir gráficos de explicación local</p></li>
+</ul>
+</section>
+<section id="comparacion-de-resultados">
+<h2>7.12.10. Comparación de Resultados<a class="headerlink" href="#comparacion-de-resultados" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Tabla comparativa con:</strong></p>
+<ul>
+<li><p>Métricas para scikit-learn vs PySpark</p></li>
+<li><p>Tiempo de cómputo (entrenamiento y predicción)</p></li>
+</ul>
+</li>
+<li><p><strong>Gráficos:</strong></p>
+<ul>
+<li><p>Curvas ROC</p></li>
+<li><p>Gráficos comparativos de tiempo</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="entregable">
+<h2>7.12.11. Entregable<a class="headerlink" href="#entregable" title="Link to this heading">#</a></h2>
+<p>Un <strong>Jupyter Book</strong> bien documentado que incluya:</p>
+<ul class="simple">
+<li><p>Análisis exploratorio</p></li>
+<li><p>Preprocesamiento en ambos entornos</p></li>
+<li><p>Modelado y tuning de hiperparámetros</p></li>
+<li><p>Evaluación de métricas</p></li>
+<li><p>Interpretabilidad con LIME (con visualizaciones)</p></li>
+<li><p>Reflexión crítica sobre:</p>
+<ul>
+<li><p>¿Qué entorno fue más rápido?</p></li>
+<li><p>¿Cuál más preciso?</p></li>
+<li><p>¿Cuándo es útil PySpark?</p></li>
+<li><p>¿Qué aporta LIME?</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -571,11 +616,18 @@ Se comparará el desempeño de los modelos construidos con <strong>scikit-learn<
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">7.12.1. Objetivo</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">7.12.2. Dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#target">7.12.3. Target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">7.12.1. Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">7.12.2. Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#target">7.12.3. Target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploracion-de-datos-eda">7.12.4. Exploración de datos (EDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">7.12.5. scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyspark">7.12.6. PySpark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-con-scikit-learn">7.12.7. Modelado con scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-con-pyspark">7.12.8. Modelado con PySpark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretabilidad-con-lime">7.12.9. Interpretabilidad con LIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-resultados">7.12.10. Comparación de Resultados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entregable">7.12.11. Entregable</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
