@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'comparacion';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PySpark" href="pysparkestesies.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,6 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="enunciado.html">Enunciado</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eda.html"><strong>Análisis Exploratorio de los Datos</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="modeloscikit.html"><strong>Scikit</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pysparkestesies.html"><strong>PySpark</strong></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Comparación de Resultados</strong></a></li>
 </ul>
 
@@ -544,7 +546,7 @@ document.write(`
 <p><strong>3. ¿Cuándo es útil PySpark?</strong></p>
 <p>PySpark sirve cuando se trabaja con mucha información que una sola computadora no puede manejar bien. Permite repartir el trabajo y procesar los datos más rápido. En mi caso no fue una tarea bastante ardua implementarlo, pero sí noté que las métricas del modelo mejoraron, así que se podría decir que presenta ventajas cuando los datos son grandes.</p>
 <p><strong>4. ¿Qué aporta LIME?</strong></p>
-<p>En mi caso, LIME me permitió visualizar de forma gráfica qué variables influyen en la predicción de una instancia específica. Esto aporta claridad y hace más entendible la decisión del modelo.</p>
+<p>LIME aporta un mayor entendimiento sobre cómo influyen las variables en cada instancia. Con esta técnica es posible visualizar qué tanta información aporta cada variable y, de esta manera, comprender por qué una instancia se clasifica como Default o no. En otras palabras, sirve como apoyo para interpretar y validar cómo funciona el modelo.</p>
 </section>
 </section>
 
@@ -578,6 +580,15 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="pysparkestesies.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>PySpark</strong></p>
+      </div>
+    </a>
 </div>
                 </footer>
               
