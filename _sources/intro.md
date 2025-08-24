@@ -10,6 +10,6 @@
 
 ---
 
-### <div style="text-align: center;">Agosto 17, 2025</div>
+### <div style="text-align: center;">Agosto, 2025</div>
 ### <div style="text-align: center;">Barranquilla, Colombia</div>
 ### <div style="text-align: center;">Universidad del Norte</div>
