@@ -60,7 +60,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'comparacion';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Modelo Pyspark" href="modelopysparkk.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,12 +178,9 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="enunciado.html">7.12.1. Objetivo</a></li>
-
-
+<li class="toctree-l1"><a class="reference internal" href="enunciado.html">Enunciado</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eda.html"><strong>Análisis Exploratorio de los Datos</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="modeloscikit.html"><strong>Scikit</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="modelopysparkk.html">Modelo Pyspark</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Comparación de Resultados</strong></a></li>
 </ul>
 
@@ -383,6 +379,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-comparativa"><strong>Tabla comparativa</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos"><strong>Gráficos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curvas-roc"><strong>Curvas ROC</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas"><strong>Preguntas</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -396,14 +394,157 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="comparacion-de-resultados">
 <h1><strong>Comparación de Resultados</strong><a class="headerlink" href="#comparacion-de-resultados" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>En este apartado vamos a comparar los resultados obtenidos en cada uno de los modelos implementados evaluando métricas y tiempo de ejecución. Asimismo, se hará un análisis crítico respondiendo a una serie de preguntas.</p>
 <section id="tabla-comparativa">
 <h2><strong>Tabla comparativa</strong><a class="headerlink" href="#tabla-comparativa" title="Link to this heading">#</a></h2>
 <p>A continuación, una tabla que contiene las métricas evaluadas en común en ambos modelos y el tiempo de ejecución, tanto para entrenamiento como test, que se tomaron.</p>
+<p>En este caso, se eligió <code class="docutils literal notranslate"><span class="pre">Recall</span></code> como métrica principal porque en este tipo de situaciones resulta fundamental identificar correctamente a los morosos, es decir <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">=</span> <span class="pre">1</span></code>, minimizando los falsos negativos, ya que no detectar a un cliente que es potencial a no saldar la deuda puede tener consecuencias significativas dentro del mercado en el que se encuentra. Como apoyo, también se consideró <code class="docutils literal notranslate"><span class="pre">ROC</span> <span class="pre">AUC</span></code>, ya que también resultaba interesante saber qué tan bien el modelo distingue entre morosos y no morosos de manera general.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;best_model_results.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">best_table_pyspark</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;best_table&quot;</span><span class="p">]</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;ROC AUC&quot;</span><span class="p">,</span> <span class="s2">&quot;Tiempo de entrenamiento&quot;</span><span class="p">,</span> <span class="s2">&quot;Tiempo de test&quot;</span><span class="p">]</span> 
+<span class="n">best_table_pyspark</span> <span class="o">=</span> <span class="n">best_table_pyspark</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;best_model_scikit.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">best_table_scikit</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;best_table&quot;</span><span class="p">]</span>
+<span class="n">train_time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;train_time&quot;</span><span class="p">]</span>
+<span class="n">test_time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;test_time&quot;</span><span class="p">]</span>
+
+<span class="n">best_table_scikit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">best_table_scikit</span><span class="p">])</span>
+
+<span class="n">best_table_scikit</span><span class="p">[</span><span class="s2">&quot;Tiempo de entrenamiento&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_time</span>
+<span class="n">best_table_scikit</span><span class="p">[</span><span class="s2">&quot;Tiempo de test&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">best_table_pyspark</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">df_pyspark</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">best_table_pyspark</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">df_pyspark</span> <span class="o">=</span> <span class="n">best_table_pyspark</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_pyspark</span><span class="p">[</span><span class="s2">&quot;Framework&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pyspark&quot;</span>
+
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">best_table_scikit</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">df_scikit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">best_table_scikit</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">df_scikit</span> <span class="o">=</span> <span class="n">best_table_scikit</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_scikit</span><span class="p">[</span><span class="s2">&quot;Framework&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;scikit&quot;</span>
+
+<span class="n">best_data_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_scikit</span><span class="p">,</span> <span class="n">df_pyspark</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Framework&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">best_data_final</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="s2">&quot;Framework&quot;</span><span class="p">]</span>
+<span class="n">best_data_final</span> <span class="o">=</span> <span class="n">best_data_final</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+<span class="n">best_data_final</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Framework</th>
+      <th>Accuracy</th>
+      <th>Recall</th>
+      <th>ROC AUC</th>
+      <th>Tiempo de entrenamiento</th>
+      <th>Tiempo de test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>scikit</td>
+      <td>0.750325</td>
+      <td>0.486874</td>
+      <td>0.727849</td>
+      <td>867.756521</td>
+      <td>1.176584</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>pyspark</td>
+      <td>0.708495</td>
+      <td>0.708495</td>
+      <td>0.673301</td>
+      <td>5286.549980</td>
+      <td>0.036629</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Al analizar los resultados, se observa que el modelo implementado con <em><strong>PySpark</strong></em> logró un mayor <code class="docutils literal notranslate"><span class="pre">recall</span></code> en comparación con el de <em><strong>Scikit-learn</strong></em>, lo que significa que fue más efectivo en identificar correctamente los casos de personas morosas.Sin embargo, en el resto de las métricas (<code class="docutils literal notranslate"><span class="pre">accuracy</span> <span class="pre">y</span> <span class="pre">ROC</span> <span class="pre">AUC</span></code>), el modelo de <em><strong>Scikit-learn</strong></em> mostró un mejor desempeño, aunque la diferencia no es significativa. En términos generales, considerando lo que se buscaba, el modelo de PySpark resulta más adecuado.</p>
+<p>Por otra parte, se evidencia que el tiempo de entrenamiento con <em><strong>PySpark</strong></em> fue considerablemente mayor que con <em><strong>Scikit-learn</strong></em>, pero su tiempo de evaluación en test fue mucho más rápido.</p>
 </section>
 <section id="graficos">
 <h2><strong>Gráficos</strong><a class="headerlink" href="#graficos" title="Link to this heading">#</a></h2>
-<p>Ahora, pasamos a comparar gráficamente las curvas ROC y los tiempos de ejecución.</p>
+<p>Ahora, pasamos a comparar gráficamente las curvas ROC.</p>
+</section>
+<section id="curvas-roc">
+<h2><strong>Curvas ROC</strong><a class="headerlink" href="#curvas-roc" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;roc_curve_scikit.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1f9c84c3bb302bb0ccf18d8ff413e5c5f559c23b0c1e7c18db9f6c9665d2f3fa.png" src="_images/1f9c84c3bb302bb0ccf18d8ff413e5c5f559c23b0c1e7c18db9f6c9665d2f3fa.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;roc_curve_pyspark.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/71056c23cba2856ccb812503937e24dc998fc02ba273e687e87f45ec7b69d39e.png" src="_images/71056c23cba2856ccb812503937e24dc998fc02ba273e687e87f45ec7b69d39e.png" />
+</div>
+</div>
+</section>
+<section id="preguntas">
+<h2><strong>Preguntas</strong><a class="headerlink" href="#preguntas" title="Link to this heading">#</a></h2>
+<p><strong>1. ¿Qué entorno fue más rápido?</strong></p>
+<p>En mi caso, <strong>el modelo más rápido fue el ejecutado en Scikit-learn</strong>, y de hecho la diferencia en tiempo fue bastante marcada. Esto puede deberse a distintos factores propios de cada librería. Sin embargo, un aspecto importante a resaltar es que, al trabajar con PySpark, la memoria RAM no alcanzaba a soportar toda la carga de datos, lo que ocasionó una ralentización en el proceso.</p>
+<p><strong>2. ¿Cuál más preciso?</strong></p>
+<p>El modelo más preciso fue el de PySpark. Este logró un mejor desempeño al identificar los casos correctos, mostrando mayor efectividad en la tarea propuesta.</p>
+<p><strong>3. ¿Cuándo es útil PySpark?</strong></p>
+<p>PySpark sirve cuando se trabaja con mucha información que una sola computadora no puede manejar bien. Permite repartir el trabajo y procesar los datos más rápido. En mi caso no fue una tarea bastante ardua implementarlo, pero sí noté que las métricas del modelo mejoraron, así que se podría decir que presenta ventajas cuando los datos son grandes.</p>
+<p><strong>4. ¿Qué aporta LIME?</strong></p>
+<p>En mi caso, LIME me permitió visualizar de forma gráfica qué variables influyen en la predicción de una instancia específica. Esto aporta claridad y hace más entendible la decisión del modelo.</p>
 </section>
 </section>
 
@@ -416,16 +557,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "wslenv"
         },
         kernelOptions: {
-            name: "python3",
+            name: "wslenv",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'wslenv'</script>
 
                 </article>
               
@@ -437,15 +578,6 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="modelopysparkk.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Modelo Pyspark</p>
-      </div>
-    </a>
 </div>
                 </footer>
               
@@ -464,6 +596,8 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-comparativa"><strong>Tabla comparativa</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos"><strong>Gráficos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curvas-roc"><strong>Curvas ROC</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas"><strong>Preguntas</strong></a></li>
 </ul>
   </nav></div>
 
