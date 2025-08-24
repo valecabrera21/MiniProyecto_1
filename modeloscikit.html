@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'modeloscikit';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PySpark" href="pysparkestesies.html" />
     <link rel="prev" title="Análisis Exploratorio de los Datos" href="eda.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,6 +183,7 @@
 <li class="toctree-l1"><a class="reference internal" href="enunciado.html">Enunciado</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eda.html"><strong>Análisis Exploratorio de los Datos</strong></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Scikit</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pysparkestesies.html"><strong>PySpark</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="comparacion.html"><strong>Comparación de Resultados</strong></a></li>
 </ul>
 
@@ -500,7 +502,7 @@ Variables seleccionadas: [&#39;dti&#39;, &#39;grade&#39;, &#39;tot_hi_cred_lim&#
 </div>
 </div>
 </div>
-<p>Como resultado, se obtuvo que entre el conjunto total de datos disponibles, la información de <strong>22</strong> varias resultó ser la más siginificativa o relevante.</p>
+<p>Como resultado, se obtuvo que entre el conjunto total de datos disponibles, la información de <strong>22</strong> variables resultó ser la más siginificativa o relevante.</p>
 <p>Ahora, vamos a implementar <strong>MLP</strong> con estas variables seleccionadas.</p>
 </section>
 <section id="modelo-mlp">
@@ -798,7 +800,7 @@ Variables seleccionadas: [&#39;dti&#39;, &#39;grade&#39;, &#39;tot_hi_cred_lim&#
 <img alt="_images/d4037470ff7b1a5a4f14d30e016f4f53c9a28c577cd1adb205df36f121ad6747.png" src="_images/d4037470ff7b1a5a4f14d30e016f4f53c9a28c577cd1adb205df36f121ad6747.png" />
 </div>
 </div>
-<p>Este gráfico muestra la explicación local generada con LIME para la instancia 5, evidenciando las variables que más influyeron en la predicción. Las barras azul oscuro representan los factores que empujaron la predicción hacia Default (incumplimiento), siendo los más decisivos la actividad crediticia muy reciente (mo_sin_rcnt_tl) y un historial de pagos atrasados (num_accts_ever_120_pd). En contraste, las barras celestes reflejan variables asociadas con Fully Paid, destacando la ausencia de un acuerdo de liquidación de deuda (debt_settlement_flag_Y).</p>
+<p>Este gráfico muestra la explicación generada con <strong>LIME</strong> para la instancia 5, evidenciando las variables que más influyeron en la predicción. Las barras azul oscuro representan los factores que empujaron la predicción hacia <code class="docutils literal notranslate"><span class="pre">Default</span></code>, siendo los más decisivos la actividad <code class="docutils literal notranslate"><span class="pre">mo_sin_rcnt_tl</span></code> y <code class="docutils literal notranslate"><span class="pre">num_accts_ever_120_pd</span></code>. En contraste, las barras azul claro reflejan variables asociadas con <code class="docutils literal notranslate"><span class="pre">Fully</span> <span class="pre">Paid</span></code>, destacando la <code class="docutils literal notranslate"><span class="pre">debt_settlement_flag_Y</span></code>.</p>
 </section>
 <section id="referencia-bibliografica">
 <h2><strong>Referencia bibliográfica</strong><a class="headerlink" href="#referencia-bibliografica" title="Link to this heading">#</a></h2>
@@ -844,6 +846,15 @@ Variables seleccionadas: [&#39;dti&#39;, &#39;grade&#39;, &#39;tot_hi_cred_lim&#
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title"><strong>Análisis Exploratorio de los Datos</strong></p>
       </div>
+    </a>
+    <a class="right-next"
+       href="pysparkestesies.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>PySpark</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
